@@ -1,76 +1,4 @@
-
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation for Sites</title>
-    <link rel="stylesheet" href="assets/css/foundation.css">
-  </head>
-  <body style="background-color: #1c2c4e; ">
-    
-     <header>
-         
-         <div class="grid-container">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-8 tituloGestao">  </div>
-                    
-                    <div class="cell small-4">
-                        <div class="grid-container">
-                               <figure>
-                                        <img src="assets/img/logAberto.png" alt="Logo Sistema de Projetos">
-                            </figure>     
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-         
-         
-          
-        </header>
-    <main style="background-color:#e9eaea;   " >
-            
-        <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
-                <div class="cell auto"></div>
-                
-                <div class="medium-2 cell">
-                    <form>
-                        <div class="grid-container">
-                            <div class="grid-x grid-padding-x">
-                                <div class="medium-12 cell">
-                                    <label>Login  
-                                        <input type="text" placeholder="Digite seu Email">
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-padding-x">
-                                <div class="medium-12 cell">
-                                    <label>Senha
-                                        <input type="password" placeholder="Digite sua Senha">
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="grid-x grid-padding-x">
-                                <div class="medium-12 cell">
-
-                                    <a  class="button success" style="width: 100%; background-color: #1c2c4e; color: white; font-weight: bold"   >Acessar</a>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="cell auto"></div>
-            </div>
-        
-        
-        </main>
-    <footer >
+<footer >
         <div class="grid-container">
             
             <div class="grid-x grid-margin-x">
@@ -164,11 +92,3 @@
    
 
     </footer>
-
-     
-
-
-<script src="assets/js/vendor.js"></script>
-<script src="assets/js/foundation.js"></script>
-</body>
-</html>
