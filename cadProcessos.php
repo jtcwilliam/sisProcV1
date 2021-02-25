@@ -25,12 +25,18 @@
                   <div class="small-12 medium-12 large-12 cell">
                       <fieldset class="fieldset">
                           <legend>
-                              Cadastrar Pessoas
+                              Cadastrar Processos
                           </legend>
                           <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-6 cell">                                                
-                                  <label>Nome  
-                                      <input type="text" id="txtNome" placeholder="Digite seu Nome">
+                             <div class="small-12 medium-12 large-3 cell">                                                
+                                  <label>Numero Processo  
+                                      <input type="text" id="txtNome" placeholder="Numero do processo (sem o ano)">
+                                  </label>
+                              </div>
+                              
+                              <div class="small-12 medium-12 large-2 cell">                                                
+                                  <label>Ano Processo  
+                                      <input type="text" id="txtAno" placeholder="Digite Ano">
                                   </label>
                               </div>
                               
@@ -38,15 +44,44 @@
                           </div> 
                           
                           <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-3 cell">                                                
-                                  <label>Ramal / Celular 
-                                      <input type="text" id="txtTelefone" placeholder="Digite seu Número">
+                             <div class="small-12 medium-12 large-12 cell">                                                
+                                  <label>Objeto do Processo  
+                                      <input type="text" id="txtObjetoProcesso" placeholder="Objeto do Processo">
                                   </label>
-                              </div>
-                              
-                              <div class="small-12 medium-12 large-9 cell">                                                
-                                  <label>Departamento
-                                      <select id="cbDepto">
+                              </div>    
+                          </div>
+                          
+                          <div class="grid-x grid-padding-x">
+                             <div class="small-12 medium-12 large-12 cell">                                                
+                                  <label>Breve Descrição do Processo  
+                                      <textarea id="txtDescricaoProjeto" rows="5" maxlength="160"></textarea>
+                                  </label>
+                              </div>    
+                          </div>
+                          
+                          
+                          <div class="grid-x grid-padding-x">
+                             <div class="small-12 medium-12 large-12 cell">                                                
+                                  <label>Fonte de Recurso
+                                      <input type="text" id="txtFonteRecurso" placeholder="Objeto do Processo">
+                                  </label>
+                              </div>    
+                          </div>
+                          
+                          <div class="grid-x grid-padding-x">
+                             <div class="small-12 medium-12 large-12 cell">                                                
+                                  <label>Tags (Palavras chaves separadas por ponto e virgula)
+                                      <textarea id="txtTag" rows="2" maxlength="160"></textarea>
+                                  </label>
+                              </div>    
+                          </div>
+                         
+                          
+                          
+                          <div class="grid-x grid-padding-x">
+                              <div class="small-12 medium-12 large-6 cell">                                                
+                                         <label>Departamento Requerente
+                                      <select id="cbDeptoReq">
                                           <option value="husker">Departamento de Ensino Escolar (SESE01)</option>
                                           <option value="starbuck">Departamento de Orientações Educacionais e Pedagógicas (SESE02)</option>
                                           <option value="hotdog">Departamento de Controle da Execução Orçamentária da Educação (SESE03)</option>
@@ -58,26 +93,13 @@
                                       </select>
                                   </label>
                               </div>
-                          </div> 
-                          
-                          
-                          <div class="grid-x grid-padding-x">
-                              <div class="small-12 medium-12 large-6 cell">                                                
-                                  <label>Email (este será seu login
-                                      <input type="text" id="txtEmail" placeholder="Digite seu Email">
-                                  </label>
-                              </div>
                              <div class="small-12 medium-12 large-3 cell">                                                
-                                  <label>Digite sua senha
-                                      <input type="text" id="txtSenha" placeholder="Digite uma senha">
+                                  <label>Data de Abertura do Processo
+                                      <input type="date" id="txtDataAbertura" />
                                   </label>
                               </div>
                               
-                              <div class="small-12 medium-12 large-3 cell">                                                
-                                  <label>Confirme sua senha
-                                      <input type="password" id="txtConfirmaSenha" placeholder="Redigite a mesma senha">
-                                  </label>
-                              </div>
+                               
                               
                               <div class="small-12 medium-12 large-12 cell">                                                
                                   <label> 

@@ -24,7 +24,7 @@
         <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
                 <div class="cell auto"></div>
                 
-                <div class="medium-2 cell">
+                <div class="small-12  medium-5  large-5 cell">
                     <form>
                         <div class="grid-container">
                             <div class="grid-x grid-padding-x">
@@ -46,6 +46,8 @@
                                 <div class="medium-12 cell">
 
                                     <a  class="button success" style="width: 100%; background-color: #1c2c4e; color: white; font-weight: bold"   >Acessar</a>
+                                    
+                                    <a  class="button success" href="cadPessoas.php" style="width: 100%; background-color: #1779ba; color: white; font-weight: bold"   >Solicitar Acesso</a>
 
                                 </div>
                             </div>
