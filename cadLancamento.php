@@ -21,86 +21,56 @@
                  
               </div>
       
-        <main style="background-color:#e9eaea;   " >
+       <main style="background-color:#e9eaea;   " >
           <div class="grid-container">
               <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
                   <div class="small-12 medium-12 large-12 cell">
                       <fieldset class="fieldset">
                           <legend>
-                              Processos
+                               Lançamento
                           </legend>
-                          <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-3 cell">                                                
-                                  <label>Numero Processo  
-                                      <input type="text" id="txtNome" placeholder="Numero do processo (sem o ano)">
-                                  </label>
-                              </div>
-                              
-                              <div class="small-12 medium-12 large-2 cell">                                                
-                                  <label>Ano Processo  
-                                      <input type="text" id="txtAno" placeholder="Digite Ano">
-                                  </label>
-                              </div>
-                              
-                              
-                          </div> 
+                           
                           
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-12 cell">                                                
-                                  <label>Objeto do Processo  
-                                      <input type="text" id="txtObjetoProcesso" placeholder="Objeto do Processo">
+                                  <label>Lançamento
+                                      <input type="text" id="txtNomeLancamento" placeholder="Objeto do Processo">
                                   </label>
                               </div>    
                           </div>
                           
+                           
+                          
+                          
+                           
+                          
+                           
+                          
+                          <!-- importa aqui qual departamento pode usar este lançamento -->
                           <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-12 cell">                                                
-                                  <label>Breve Descrição do Processo  
-                                      <textarea id="txtDescricaoProjeto" rows="5" maxlength="160"></textarea>
-                                  </label>
-                              </div>    
-                          </div>
-                          
-                          
-                          <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-12 cell">                                                
-                                  <label>Fonte de Recurso
-                                      <input type="text" id="txtFonteRecurso" placeholder="Objeto do Processo">
-                                  </label>
-                              </div>    
-                          </div>
-                          
-                          <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-12 cell">                                                
-                                  <label>Tags (Palavras chaves separadas por ponto e virgula)
-                                      <textarea id="txtTag" rows="2" maxlength="160"></textarea>
-                                  </label>
-                              </div>    
-                          </div>
-                         
-                          
-                          
-                          <div class="grid-x grid-padding-x">
-                              <div class="small-12 medium-12 large-6 cell">                                                
-                                         <label>Departamento Requerente
-                                      <select id="cbDeptoReq">
-                                          <option value="husker">Departamento de Ensino Escolar (SESE01)</option>
-                                          <option value="starbuck">Departamento de Orientações Educacionais e Pedagógicas (SESE02)</option>
-                                          <option value="hotdog">Departamento de Controle da Execução Orçamentária da Educação (SESE03)</option>
-                                          <option value="apollo">Departamento de Alimentação e Suprimentos da Educação (SESE04)</option>
-                                          <option value="apollo">Departamento de Manutenção de Próprios da Educação (SESE05)</option>
-                                          <option value="apollo">Departamento de Planejamento e Informática na Educação (SESE06)</option>
-                                          <option value="apollo">Departamento de Serviços Gerais da Educação (SESE07)
+                              <div class="small-12 medium-12 large-8 cell">                                                
+                                         <label>Departamento Proprietário
+                                      <select id="cbDepto">
+                                          <option value="0">Selecione</option>
+                                          <option value="DCEOE">James</option>
+                                           
 </option>
                                       </select>
                                   </label>
                               </div>
-                             <div class="small-12 medium-12 large-3 cell">                                                
-                                  <label>Data de Abertura do Processo
-                                      <input type="date" id="txtDataAbertura" />
+                              
+                              
+                              
+                                 <div class="small-12 medium-12 large-4 cell">                                                
+                                  <label>Status
+                                      <select id="cbStatus">
+                                          <option value="husker">Abertura</option>
+                                          <option value="starbuck">Inativo</option>
+                                           
+</option>
+                                      </select>
                                   </label>
                               </div>
-                              
                                
                               
                               <div class="small-12 medium-12 large-12 cell">                                                
