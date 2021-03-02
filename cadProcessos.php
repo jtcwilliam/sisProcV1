@@ -25,14 +25,15 @@
           <div class="grid-container">
               <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
                   <div class="small-12 medium-12 large-12 cell">
-                      <fieldset class="fieldset">
+                      <form action="controllerAjax/controllerCadProcessos.php" method="post">
+                        <fieldset class="fieldset">
                           <legend>
                               Processos
                           </legend>
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-3 cell">                                                
                                   <label>Numero Processo  
-                                      <input type="text" id="txtNome" placeholder="Numero do processo (sem o ano)">
+                                      <input type="text" id="txtNumero" placeholder="Numero do processo (sem o ano)">
                                   </label>
                               </div>
                               
@@ -84,6 +85,7 @@
                               <div class="small-12 medium-12 large-6 cell">                                                
                                          <label>Departamento Requerente
                                       <select id="cbDeptoReq">
+                                          <option value="0">Selecione</option>
                                           <option value="husker">Departamento de Ensino Escolar (SESE01)</option>
                                           <option value="starbuck">Departamento de Orientações Educacionais e Pedagógicas (SESE02)</option>
                                           <option value="hotdog">Departamento de Controle da Execução Orçamentária da Educação (SESE03)</option>
@@ -105,7 +107,7 @@
                               
                               <div class="small-12 medium-12 large-12 cell">                                                
                                   <label> 
-                                      <a class="button botaoConfirmar" id="btntCadastrar" style="width: 100%">Clique aqui para solicitar Cadastro e Acesso</a>
+                                      <button type="submit" class="button botaoConfirmar"  id="btntCadastrar" style="width: 100%">Clique aqui para solicitar Cadastro e Acesso</button>
                                       
                                       
                                   </label>
@@ -116,6 +118,7 @@
                           
                           
                       </fieldset>
+                      </form>
                   </div>
               </div>
           </div>
@@ -143,23 +146,23 @@
             console.log( "ready!" );
         });    
             $('form').submit(function(event) {
-        // get the form data
+        // get the form data  txtAno: 
         // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
-           txtNome: $('#txtNome').val(),
-            cbPerfil: $('#cbPerfil').val(),
-            cbStatus: $('#cbStatus').val(),
-            txtTelefone: $('#txtTelefone').val(), 
-            cbDepto: $('#cbDepto').val(),
-            txtEmail: $('#txtEmail').val(),
-            txtSenha: $('#txtSenha').val(),
-            txtConfirmaSenha: $('#txtConfirmaSenha').val(),
+            txtNumero: $('#txtNumero').val(),
+            txtAno: $('#txtAno').val(),
+            txtObjetoProcesso: $('#txtObjetoProcesso').val(),
+            txtDescricaoProjeto: $('#txtDescricaoProjeto').val(),
+            txtFonteRecurso: $('#txtFonteRecurso').val(),
+            txtTag: $('#txtTag').val(),
+            cbDeptoReq: $('#cbDeptoReq').val(),
+            txtDataAbertura: $('#txtDataAbertura').val()
         };
 
         // process the form
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'controllerAjax/controllerCadPessoas.php', // the url where we want to POST
+            url         : 'controllerAjax/controllerCadProcessos.php', // the url where we want to POST
             data        : formData, // our data object
             dataType    : 'json', // what type of data do we expect back from the server
             encode          : true
@@ -189,82 +192,45 @@
                         
              
                        
-                       
 
 //substituir o trecho, por um que escreva a mensagem.. 'campos em amarelo estão vazios, favor preencher corretamente'
 
  
             // handle errors for name ---------------
-            if (data.error.nome) {
-                    $('#txtNome').css("background-color", "yellow");
-                    
-              //      $('#retornoErros').addClass('has-error');
-              //      $('#retornoErros').append('<div class="help-block">' + data.error.nome + '</div>'); 
-            }
+            if (data.error.txtNumero) {
+                    $('#txtNumero').css("background-color", "yellow");
+             }
             
             
-            if (data.error.status) {
-                    $('#cbStatus').css("background-color", "yellow");
-                    
-          //          $('#retornoErros').addClass('has-error');
-         //           $('#retornoErros').append('<div class="help-block">' + data.error.status + '</div>'); 
+            if (data.error.txtAno) {
+                    $('#txtAno').css("background-color", "yellow");
+             }
+            
+             if (data.error.txtObjetoProcesso) {
+                    $('#txtObjetoProcesso').css("background-color", "yellow");
+             }
+            
+             if (data.error.txtDescricaoProjeto) {
+                    $('#txtDescricaoProjeto').css("background-color", "yellow");
+             }
+            
+            if (data.error.txtFonteRecurso) {
+                    $('#txtFonteRecurso').css("background-color", "yellow");
+             }
+            
+            if (data.error.txtTag) {
+                    $('#txtTag').css("background-color", "yellow");
             }
             
-             if (data.error.Perfil) {
-                    $('#cbPerfil').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.Perfil + '</div>'); 
+             if (data.error.cbDeptoReq) {
+                    $('#cbDeptoReq').css("background-color", "yellow");
             }
             
-             if (data.error.Departamento) {
-                    $('#cbDepto').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-             //       $('#retornoErros').append('<div class="help-block">' + data.error.Departamento + '</div>'); 
+            if (data.error.txtDataAbertura) {
+                    $('#txtDataAbertura').css("background-color", "yellow");
             }
             
-            if (data.error.email) {
-                    $('#txtEmail').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.email + '</div>'); 
-            }
-            
-            if (data.error.Departamento) {
-                    $('#cbDepto').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.Departamento + '</div>'); 
-            }
-            
-             if (data.error.telefone) {
-                    $('#txtTelefone').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.telefone + '</div>'); 
-            }
-            
-            if (data.error.telefone) {
-                    $('#txtTelefone').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.telefone + '</div>'); 
-            }
-            
-            if (data.error.senha) {
-                    $('#txtSenha').css("background-color", "yellow");
-                    
-            //        $('#retornoErros').addClass('has-error');
-            //        $('#retornoErros').append('<div class="help-block">' + data.error.senha + '</div>'); 
-            }
-            
-            if (data.error.confirmaSenha) {
-                    $('#txtConfirmaSenha').css("background-color", "yellow");
-                    
-             //       $('#retornoErros').addClass('has-error');
-             //       $('#retornoErros').append('<div class="help-block">' + data.error.confirmaSenha + '</div>'); 
-            }
+           
              
         } else {
           // ALL GOOD! just show the success message!
