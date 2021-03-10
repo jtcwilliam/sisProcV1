@@ -43,8 +43,17 @@
                                   </label>
                               </div>
                               
+                              <div class="small-12 medium-12 large-4 cell">                                                
+                                  <label> &nbsp;
+                                      <button class="success button" id="btnConsultarPre" style="width: 100%">Consultar Pré Existência</button>
+                                  </label>
+                              </div>
+                              
                               
                           </div> 
+                            
+                            
+                            <div class="complementoProcesso">                  
                           
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-12 cell">                                                
@@ -54,6 +63,14 @@
                               </div>    
                           </div>
                           
+                            
+                             <div class="grid-x grid-padding-x">
+                             <div class="small-12 medium-12 large-12 cell">                                                
+                                  <label>Modalidade
+                                      <input type="text" id="txtModalidade" placeholder="Modalidade do Processo">
+                                  </label>
+                              </div>    
+                          </div>
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-12 cell">                                                
                                   <label>Breve Descrição do Processo  
@@ -66,9 +83,21 @@
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-12 cell">                                                
                                   <label>Fonte de Recurso
-                                      <input type="text" id="txtFonteRecurso" placeholder="Objeto do Processo">
+                                      <input type="text" id="txtFonteRecurso" placeholder="Fonte de Recurso">
                                   </label>
                               </div>    
+                          </div>
+                            
+                             <div class="grid-x grid-padding-x">
+                                 <div class="small-12 medium-12 large-12 cell">                                                
+                                     <label>Previsão Orçamentária
+                                         <div class="input-group">
+                                             <span class="input-group-label">R$</span>
+                                             <input class="input-group-field" id="txtPrevisao" type="text">
+                                              
+                                         </div>
+                                     </label>
+                                 </div>    
                           </div>
                           
                           <div class="grid-x grid-padding-x">
@@ -114,6 +143,7 @@
                               </div>
                           </div> 
                           
+                            </div>
                           
                           
                           
@@ -144,7 +174,65 @@
             $('#txtCPFPrincipal').mask("000.000.000-00");
             $('#txtTelefone').mask("(00) 00000-0000");
             console.log( "ready!" );
+              $('#txtPrevisao').mask('0000.000.000.000.000,00', {reverse: true});
+              
+              
+              $('.complementoProcesso').css('display','none');
         });    
+        
+        
+        
+        
+        
+        
+        
+         $('#btnConsultarPre').click(function(event) {
+             
+           
+             
+             
+              var formData = {
+                  consultaProcesso:'1',
+            txtNumero: $('#txtNumero').val(),
+            txtAno: $('#txtAno').val(),
+            txtObjetoProcesso: $('#txtObjetoProcesso').val(),
+            txtDescricaoProjeto: $('#txtDescricaoProjeto').val(),
+            txtFonteRecurso: $('#txtFonteRecurso').val(),
+            txtModalidade: $('#txtModalidade').val(),
+            txtTag: $('#txtTag').val(),
+            cbDeptoReq: $('#cbDeptoReq').val(),
+            txtDataAbertura: $('#txtDataAbertura').val(),
+            txtPrevisao: $('#txtPrevisao').val()
+              
+        };
+
+        // process the form
+        $.ajax({uuui8ijhnbb /   
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'controllerAjax/controllerCadProcessos.php', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+                
+             console.log('teste');
+                console.log(data.numeroProcesso);
+             
+              
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+             
+    }); 
+        
+        
+        
+
+        
+        
             $('form').submit(function(event) {
         // get the form data  txtAno: 
         // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -154,9 +242,12 @@
             txtObjetoProcesso: $('#txtObjetoProcesso').val(),
             txtDescricaoProjeto: $('#txtDescricaoProjeto').val(),
             txtFonteRecurso: $('#txtFonteRecurso').val(),
+            txtModalidade: $('#txtModalidade').val(),
             txtTag: $('#txtTag').val(),
             cbDeptoReq: $('#cbDeptoReq').val(),
-            txtDataAbertura: $('#txtDataAbertura').val()
+            txtDataAbertura: $('#txtDataAbertura').val(),
+            txtPrevisao: $('#txtPrevisao').val()
+              
         };
 
         // process the form
@@ -199,6 +290,10 @@
             // handle errors for name ---------------
             if (data.error.txtNumero) {
                     $('#txtNumero').css("background-color", "yellow");
+             }
+             
+              if (data.error.txtModalidade) {
+                    $('#txtModalidade').css("background-color", "yellow");
              }
             
             

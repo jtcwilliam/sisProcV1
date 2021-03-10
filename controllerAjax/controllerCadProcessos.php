@@ -1,14 +1,26 @@
 <?php
-
-/*
  
-include_once '../classes/Pessoas.php';
-
-$objPessoas = new Pessoas();
-
-*/
-
+include_once '../classes/Processos.php';
+$objProcesso = new Processos();
  
+$dados = array(); 
+
+if(isset($_POST['consultaProcesso'])) {
+    
+    
+   
+    
+   $dados[]= $objProcesso->retornarProcessos($_POST['txtNumero'], $_POST['txtAno']);
+   
+  
+    echo json_encode($dados);
+   
+}
+
+exit();
+
+
+
 
 $error        = array();      // array to hold validation errors
 $data           = array();  
@@ -20,6 +32,13 @@ if (empty($_POST['txtNumero'])) {
     
 }else{
     $txtNumero = $_POST['txtNumero'];
+}
+ 
+if (empty($_POST['txtModalidade'])) {
+    $error['txtModalidade'] = 'Campo Nome está vazio';
+    
+}else{
+    $txtModalidade = $_POST['txtModalidade'];
 }
 
 if (empty($_POST['txtAno'])) {
@@ -67,6 +86,12 @@ if (empty($_POST['txtDataAbertura'])) {
 }
  
 
+
+if (empty($_POST['txtPrevisao'])) {
+    $error['txtPrevisao'] = 'Campo email está vazio';
+    }else{
+    $txtPrevisao = $_POST['txtPrevisao'];
+}
  
 
 if ( ! empty($error)) {
