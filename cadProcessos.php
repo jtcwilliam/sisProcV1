@@ -1,14 +1,15 @@
-<!doctype html>
+  <!doctype html>
 <html class="no-js" lang="en">
     
  <!-- inclusao do head (cabecalho com css ) -->
      <?php 
      
-        include_once 'includes/head.php'; 
+        include_once 'includes/head.php';   
         ?> 
   
   <body style="background-color: #1c2c4e; ">
    
+    
       <?php
         //incluindo o header (semantico)
         include_once 'includes/header.php';
@@ -22,10 +23,19 @@
               </div>
       
         <main style="background-color:#e9eaea;   " >
-          <div class="grid-container">
+
+        <script>
+                  
+
+        </script>
+          
+            
+            <a class="button" onclick="enviarCadastro()">TEstes</a>
+            
+            <div class="grid-container">
               <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
                   <div class="small-12 medium-12 large-12 cell">
-                      <form action="controllerAjax/controllerCadProcessos.php" method="post">
+                      <form   method="post">
                         <fieldset class="fieldset">
                           <legend>
                               Processos
@@ -45,7 +55,7 @@
                               
                               <div class="small-12 medium-12 large-4 cell">                                                
                                   <label> &nbsp;
-                                      <button class="success button" id="btnConsultarPre" style="width: 100%">Consultar Pré Existência</button>
+                                      <a class="success button" id="btnConsultarPre" style="width: 100%">Consultar Pré Existência</a>
                                   </label>
                               </div>
                               
@@ -167,176 +177,49 @@
  
     <script>
         
-          
+       
+       
       
-    $( document ).ready(function() 
-        {
-            $('#txtCPFPrincipal').mask("000.000.000-00");
+         
+      
+    $(document).ready(function() 
+        { 
+            
+              
+         /*   $('#txtCPFPrincipal').mask("000.000.000-00");
             $('#txtTelefone').mask("(00) 00000-0000");
-            console.log( "ready!" );
-              $('#txtPrevisao').mask('0000.000.000.000.000,00', {reverse: true});
-              
-              
-              $('.complementoProcesso').css('display','none');
+            $('#txtPrevisao').mask('0000.000.000.000.000,00', {reverse: true});
+            */
+           // $('.complementoProcesso').css('display','none');
         });    
-        
-        
-        
-        
-        
-        
-        
-         $('#btnConsultarPre').click(function(event) {
-             
+         
+         
+          
+       //   url: "controllerAjax/controllerCadProcessos.php",
+       $('#btnConsultarPre').on('click', function (){
+       
            
-             
-             
-              var formData = {
-                  consultaProcesso:'1',
-            txtNumero: $('#txtNumero').val(),
-            txtAno: $('#txtAno').val(),
-            txtObjetoProcesso: $('#txtObjetoProcesso').val(),
-            txtDescricaoProjeto: $('#txtDescricaoProjeto').val(),
-            txtFonteRecurso: $('#txtFonteRecurso').val(),
-            txtModalidade: $('#txtModalidade').val(),
-            txtTag: $('#txtTag').val(),
-            cbDeptoReq: $('#cbDeptoReq').val(),
-            txtDataAbertura: $('#txtDataAbertura').val(),
-            txtPrevisao: $('#txtPrevisao').val()
-              
-        };
-
-        // process the form
-        $.ajax({uuui8ijhnbb /   
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'controllerAjax/controllerCadProcessos.php', // the url where we want to POST
-            data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
-            encode          : true
-        })
-            // using the done promise callback
-            .done(function(data) {
-                
-             console.log('teste');
-                console.log(data.numeroProcesso);
-             
-              
-            });
-
-        // stop the form from submitting the normal way and refreshing the page
-        event.preventDefault();
-             
-    }); 
-        
-        
-        
-
-        
-        
-            $('form').submit(function(event) {
-        // get the form data  txtAno: 
-        // there are many ways to get this data using jQuery (you can use the class or id also)
-        var formData = {
-            txtNumero: $('#txtNumero').val(),
-            txtAno: $('#txtAno').val(),
-            txtObjetoProcesso: $('#txtObjetoProcesso').val(),
-            txtDescricaoProjeto: $('#txtDescricaoProjeto').val(),
-            txtFonteRecurso: $('#txtFonteRecurso').val(),
-            txtModalidade: $('#txtModalidade').val(),
-            txtTag: $('#txtTag').val(),
-            cbDeptoReq: $('#cbDeptoReq').val(),
-            txtDataAbertura: $('#txtDataAbertura').val(),
-            txtPrevisao: $('#txtPrevisao').val()
-              
-        };
-
-        // process the form
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'controllerAjax/controllerCadProcessos.php', // the url where we want to POST
-            data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
-            encode          : true
-        })
-            // using the done promise callback
-            .done(function(data) {
-                
-               
-
-                // log data to the console so we can see
-                console.log(data);
-                
-                  if ( ! data.success) {
-                      $('#modalInformacoes').css("background-color", "#1c2c4e"); 
-                              
-                              $('#modalInformacoes').css("color", "white");
-                      
-                      $('#modalInformacoes').css("font-weight", "bolder");
-                      
-                      $('#modalInformacoes').css("text-align","center");
-                       
-                       
-                      
-                        $('#modalInformacoes').html('<h1>Atenção</h1><h5>Existem campos sem informação! Favor observar os campos em amarelo</h5>  <button type="submit" class="button botaoConfirmar"    data-close aria-label="Close reveal"  id="btntCadastrar" style="width: 100%">fechar</button>').foundation('open');
-                        
-                        
-                        
-             
-                       
-
-//substituir o trecho, por um que escreva a mensagem.. 'campos em amarelo estão vazios, favor preencher corretamente'
-
- 
-            // handle errors for name ---------------
-            if (data.error.txtNumero) {
-                    $('#txtNumero').css("background-color", "yellow");
-             }
-             
-              if (data.error.txtModalidade) {
-                    $('#txtModalidade').css("background-color", "yellow");
-             }
-            
-            
-            if (data.error.txtAno) {
-                    $('#txtAno').css("background-color", "yellow");
-             }
-            
-             if (data.error.txtObjetoProcesso) {
-                    $('#txtObjetoProcesso').css("background-color", "yellow");
-             }
-            
-             if (data.error.txtDescricaoProjeto) {
-                    $('#txtDescricaoProjeto').css("background-color", "yellow");
-             }
-            
-            if (data.error.txtFonteRecurso) {
-                    $('#txtFonteRecurso').css("background-color", "yellow");
-             }
-            
-            if (data.error.txtTag) {
-                    $('#txtTag').css("background-color", "yellow");
-            }
-            
-             if (data.error.cbDeptoReq) {
-                    $('#cbDeptoReq').css("background-color", "yellow");
-            }
-            
-            if (data.error.txtDataAbertura) {
-                    $('#txtDataAbertura').css("background-color", "yellow");
-            }
-            
+           $.ajax({
+                     url: "controllerAjax/controllerCadProcessos.php",
+                    method:"POST",
+                     data:{consultaProcesso:"1"},
+                     dataType:"json",
+                       success:function(data)
+                        {
+                         console.log(data);
+                        },
+           error: function() {
+             alert("Ocorreu um erro ao carregar os dados.");
+           }
+        });
+       
            
-             
-        } else {
-          // ALL GOOD! just show the success message!
-          $('form').html('<div class="alert alert-success">' + data.message + '</div>');
-        } 
-                // here we will handle errors and validation messages
-            });
+       });
+       
 
-        // stop the form from submitting the normal way and refreshing the page
-        event.preventDefault();
-    }); 
+        
+        
+         
         
     </script>
 

@@ -117,30 +117,34 @@ class Processos {
     }
 
 
-    public function  retornarProcessos($numero,$ano){
+    public function  retornarProcessos(){
         $sql = 'select * from processo';
         
         
         $executar = mysqli_query($this->getConexao(), $sql);
         
-        $linhas = array();
-        $dados = array();
-        while($linhas = mysqli_fetch_assoc($executar)){
-            array_push($dados, $linhas);
+         $dados[] = array();
+    
+        while($row = mysqli_fetch_assoc($executar)){
+             $dados[] = array (
+                 "numeroProcesso" => $row['numeroProcesso'],
+                 "statusStatus" => $row['statusStatus'] ,
+                 "objetoProcessos  " =>  utf8_encode($row['objetoProcessos'])
+               
+                
+             );
         }
+        
+        
          
-        return $dados;
+      
+         
         
-        /*
-        $dados = mysql_query($query, $con) or die(mysql_error());
-// transforma os dados em um array
-$linha = mysql_fetch_assoc($dados);
-// calcula quantos dados retornaram
-$total = mysql_num_rows($dados);
         
-         * *
-         */
+    return $dados;
         
+        
+    
     }
 
 }
