@@ -5,35 +5,20 @@
 include_once '../classes/Processos.php';
 $objProcesso = new Processos();
  
-$dados = array(); 
+ 
 
 if(isset($_POST['consultaProcesso'])) {
      
     
-   $dados = $objProcesso->retornarProcessos( );
+   $dados = $objProcesso->retornarProcessos(" where numeroProcesso =".$_POST['txtNumero']." and anoprocesso = ".$_POST['txtAno'] );
  
    echo json_encode($dados);
    
   
    
-/*   
-    echo '<pre>';
-    print_r($dados);
-    echo '</pre>';
-  */ 
-   
- 
-   
-    
- 
    
 }else{
- echo 'deu errado';
-//exit();
-
-
-
-
+  
         $error        = array();      // array to hold validation errors
         $data           = array();  
 
@@ -41,70 +26,71 @@ if(isset($_POST['consultaProcesso'])) {
 
         if (empty($_POST['txtNumero'])) {
             $error['txtNumero'] = 'Campo Nome está vazio';
-
-        }else{
-            $txtNumero = $_POST['txtNumero'];
+        }else{                    
+            $objProcesso->setTxtNumero($_POST['txtNumero']);
         }
 
         if (empty($_POST['txtModalidade'])) {
             $error['txtModalidade'] = 'Campo Nome está vazio';
 
-        }else{
-            $txtModalidade = $_POST['txtModalidade'];
+        }else{      
+            $objProcesso->setModalidade($_POST['txtModalidade']);
         }
 
         if (empty($_POST['txtAno'])) {
             $error['txtAno'] = 'Campo Nome está vazio';
 
         }else{
-            $txtAno = $_POST['txtAno'];
+            $objProcesso->setTxtAno($_POST['txtAno']);
         }
 
         if (empty($_POST['txtObjetoProcesso'])) {
             $error['txtObjetoProcesso'] = 'Campo Perfil está vazio';
             }else{
-            $txtObjetoProcesso = $_POST['txtObjetoProcesso'];
+            $objProcesso->setObjetoProcesso($_POST['txtObjetoProcesso']);
         }
 
         if (empty($_POST['txtDescricaoProjeto'])) {
             $error['txtDescricaoProjeto'] = 'Campo status está vazio';
             }else{
-            $txtDescricaoProjeto = $_POST['txtDescricaoProjeto'];
+            $objProcesso->setDescricaoProjeto($_POST['txtDescricaoProjeto']);
         }
 
         if (empty($_POST['txtFonteRecurso'])) {
             $error['txtFonteRecurso'] = 'Campo telefone está vazio';
             }else{
-            $txtFonteRecurso = $_POST['txtFonteRecurso'];
+            $objProcesso->setFonteRecurso($_POST['txtFonteRecurso']);
         }
+        
+        
 
         if (empty($_POST['txtTag'])) {
-            $error['txtTag'] = 'Campo Departamento está vazio';
+            $error['txtTag'] = 'Campo tags está vazio';
             }else{
-            $txtTag = $_POST['txtTag'];
+            $objProcesso->setTags($_POST['txtTag']);
         }
 
         if (empty($_POST['cbDeptoReq'])) {
-            $error['cbDeptoReq'] = 'Campo email está vazio';
+            $error['cbDeptoReq'] = 'Campo depto requerente está vazio';
             }else{
-            $cbDeptoReq = $_POST['cbDeptoReq'];
+            $objProcesso->setDeptoRequerente($_POST['cbDeptoReq']);
         }
 
 
         if (empty($_POST['txtDataAbertura'])) {
-            $error['txtDataAbertura'] = 'Campo email está vazio';
+            $error['txtDataAbertura'] = 'Campo abertura está vazio';
             }else{
-            $txtDataAbertura = $_POST['txtDataAbertura'];
+            $objProcesso->setDataAbertura($_POST['txtDataAbertura']);
         }
 
-
-
+ 
         if (empty($_POST['txtPrevisao'])) {
-            $error['txtPrevisao'] = 'Campo email está vazio';
+            $objProcesso->setPrevisao('0');
+            
             }else{
-            $txtPrevisao = $_POST['txtPrevisao'];
+            $objProcesso->setPrevisao($_POST['txtPrevisao']);
         }
-
+ 
 
         if ( ! empty($error)) {
 
@@ -113,14 +99,15 @@ if(isset($_POST['consultaProcesso'])) {
             $data['error']  = $error;
         } else {
 
-            // if there are no errors process our form, then return a message
-
-            // DO ALL YOUR FORM PROCESSING HERE
-            // THIS CAN BE WHATEVER YOU WANT TO DO (LOGIN, SAVE, UPDATE, WHATEVER)
-
-            // show a message of success and provide a true success variable
-            $data['success'] = true;
-            $data['message'] = 'Success!';
+              
+            $objProcesso->setStatus('1');
+            
+            if($objProcesso->inserirProcessos())
+            {
+                $data['success'] = true;
+            }
+            /*$data['success'] = true;
+            $data['message'] = 'só inserir!';*/
         }
 
         // return all our data to an AJAX call

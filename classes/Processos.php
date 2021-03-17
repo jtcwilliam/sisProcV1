@@ -13,6 +13,7 @@ class Processos {
     private $deptoRequerente;
     private $dataAbertura;
     private $previsao;
+    private $status;
 
     function __construct() {
         // importar a classe conexao
@@ -115,36 +116,93 @@ class Processos {
     function setPrevisao($previsao) {
         $this->previsao = $previsao;
     }
+    
+    function getStatus() {
+        return $this->status;
+    }
 
+    function setStatus($status) {
+        $this->status = $status;
+    }
 
-    public function  retornarProcessos(){
-        $sql = 'select * from processo';
-        
-        
+    
+
+    public function  retornarProcessos($filtro = null){
+        //forma de se ter o método retorno de processo com várias possibilidades
+        $sql = 'select * from processo  ';
+                if($filtro  != null){
+                    $sql .= $filtro;
+                }
+            
         $executar = mysqli_query($this->getConexao(), $sql);
         
-         $dados[] = array();
-    
-        while($row = mysqli_fetch_assoc($executar)){
-             $dados[] = array (
-                 "numeroProcesso" => $row['numeroProcesso'],
-                 "statusStatus" => $row['statusStatus'] ,
-                 "objetoProcessos  " =>  utf8_encode($row['objetoProcessos'])
-               
-                
-             );
-        }
+        $contarCampos = mysqli_num_rows($executar);
         
-        
-         
-      
-         
-        
-        
-    return $dados;
+        if($contarCampos ==0)
+            {             
+                $dados[] = array ("resultado"=>false );             
+            }
+        else 
+            {
+            while ($row = mysqli_fetch_assoc($executar)) 
+                {
+                    $dados[] = array
+                        (
+                            "resultado" => TRUE,
+                            "valor" => array(
+                                "numeroProcesso" => $row['numeroProcesso'],
+                                "statusStatus" => $row['statusStatus'],
+                                "objetoProcessos" => utf8_encode($row['objetoProcessos'])
+                            )
+                        );
+                }   
+            } 
+        return $dados;
         
         
     
     }
+    
+    
+    
+    public function inserirProcessos(){        
+        try {
+            
+         
+            $sql = "INSERT INTO bancoprocteste . processo 
+                (
+                numeroProcesso,anoProcesso,descricaoProcesso ,fonteDeRecurso ,statusStatus ,objetoProcessos ,dataAberturaProcesso ,tagsProcesso ,deptoRequerente ,idModalidade ,previsaoOrcamentaria)
+                    VALUES
+                    ({$this->getTxtNumero()} ,"
+                    . "'{$this->getTxtAno()}' ,"
+                    . "'{$this->getDescricaoProjeto()}' ,"
+                    . "'{$this->getFonteRecurso()}' ,"
+                    . "' {$this->getStatus()}' ,"
+                    . "'{$this->getObjetoProcesso()}' ,"
+                    . "'{$this->getDataAbertura()}' ,"
+                    . "'{$this->getTags()}' ,"
+                    . "'{$this->getDeptoRequerente()}',"
+                    . "'{$this->getModalidade()}' ,"
+                    . "'{$this->getPrevisao()}')";
+                    
+                    
+            $executar = mysqli_query($this->getConexao(), $sql);
+            if ($executar == true) {
+                return true;
+            }else
+            {
+                return false;
+            }
+        } catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+    }
+    
+    
+    
+    /*
+     * 
+
+     */
 
 }
