@@ -1,0 +1,71 @@
+<?php
+
+class Componentes {
+    
+    
+    
+    private $conexao;
+    private $filtro;
+    private $tabela;
+    
+    function __construct() {
+          include_once 'Conexao.php';
+        //criar uma instancia de conexao;
+        $objConectar = new Conexao();
+
+        //chamar o metdo conectar
+        $banco = $objConectar->Conectar();
+
+        //criar uma instancia dessa nova conexao
+        $this->setConexao($banco);
+    }
+    
+    
+    function getConexao() {
+        return $this->conexao;
+    }
+
+    function getFiltro() {
+        return $this->filtro;
+    }
+
+    function setConexao($conexao) {
+        $this->conexao = $conexao;
+    }
+
+    function setFiltro($filtro) {
+        $this->filtro = $filtro;
+    }
+    
+    function getTabela() {
+        return $this->tabela;
+    }
+
+    function setTabela($tabela) {
+        $this->tabela = $tabela;
+    }
+
+
+
+    public function  comboBox()
+        {
+        //forma de se ter o método retorno de processo com várias possibilidades
+            $sql = "select * from {$this->getTabela()}  ";
+                    if($this->getFiltro()  != null){
+                        $sql .= $this->getFiltro();
+                    }
+
+            $executar = mysqli_query($this->getConexao(), $sql);
+
+            while ($row = mysqli_fetch_array($executar)) 
+                {
+                    echo "<option value=".utf8_encode($row[0]).">".utf8_encode($row[1])."</option>";                
+                }            
+        }
+    
+    
+
+    
+    
+    
+}

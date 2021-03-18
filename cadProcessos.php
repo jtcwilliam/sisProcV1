@@ -5,6 +5,8 @@
      <?php 
      
         include_once 'includes/head.php';   
+        include_once './classes/componentes.php';
+        $objComponentes = new Componentes();
         ?> 
   
   <body style="background-color: #1c2c4e; ">
@@ -39,6 +41,12 @@
             </button>
         </div>
             
+        <?php 
+        
+           
+                
+              
+        ?>
             <div class="grid-container">
               <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
                   <div class="small-12 medium-12 large-12 cell">
@@ -106,20 +114,21 @@
                           
                        <!-- criar a tabela fonte de recurso -->
                           <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-4 cell">        
-                                 <label>Modalidade
+                             <div class="small-12 medium-12 large-5 cell">        
+                                 <label>Fonte de Recursos
                                   <select id="txtFonteRecurso">
-                                          <option value="0">Selecione</option>
-                                          <option value="1">Tesouro Municipal</option>
-                                          <option value="2">Fundeb</option>
-                                          <option value="3">Financiamento Privado</option>
+                                        <?php
+                                            $objComponentes->setTabela('fonteRecursos');
+                                            $objComponentes->comboBox();
+                                        ?>
+                                           
 
                                           </option>
                                       </select>
                                  </label>
                               </div>    
                            
-                                 <div class="small-12 medium-12 large-4 cell">                                                
+                                 <div class="small-12 medium-12 large-3 cell">                                                
                                      <label>Previsão Orçamentária
                                          <div class="input-group">
                                              <span class="input-group-label">R$</span>
@@ -133,11 +142,10 @@
                                  <div class="small-12 medium-12 large-4 cell">                                                
                                      <label>Modalidade
                                          <select id="txtModalidade">
-                                             <option value="0">Selecione</option>
-                                             <option value="1">Inexibilidade</option>
-                                             <option value="2">Dispensa de Licitação</option>
-
-                                             </option>
+                                             <?php
+                                            $objComponentes->setTabela('modalidade');
+                                            $objComponentes->comboBox();
+                                        ?>
                                          </select>
                                      </label>
                                  </div> 
@@ -154,14 +162,13 @@
                           
                           
                           <div class="grid-x grid-padding-x">
-                              <div class="small-12 medium-12 large-6 cell">                                                
+                              <div class="small-12 medium-12 large-7 cell">                                                
                                   <label>Departamento Requerente
                                       <select id="cbDeptoReq">
-                                          <option value="0">Selecione</option>
-                                          <option value="1">Departamento de Ensino Escolar (SESE01)</option>
-                                          <option value="2">Departamento de Orientações Educacionais e Pedagógicas (SESE02)</option>
-
-                                          </option>
+                                           <?php
+                                            $objComponentes->setTabela('departamento');
+                                            $objComponentes->comboBox();
+                                        ?>
                                       </select>
                                   </label>
                               </div>
@@ -278,14 +285,9 @@
                      }
                  }
             });    
-            
-            
-            
-            
-         
-             $('form').submit(function(event) {
-                 
-        
+             
+        $('form').submit(function(event) {
+ 
         //modalLoading
         $('#modalLoading').foundation('open');
 

@@ -31,7 +31,7 @@ if(isset($_POST['consultaProcesso'])) {
         }
 
         if (empty($_POST['txtModalidade'])) {
-            $error['txtModalidade'] = 'Campo Nome está vazio';
+            $objProcesso->setModalidade('0');
 
         }else{      
             $objProcesso->setModalidade($_POST['txtModalidade']);
@@ -57,10 +57,10 @@ if(isset($_POST['consultaProcesso'])) {
         }
 
         if (empty($_POST['txtFonteRecurso'])) {
-            $error['txtFonteRecurso'] = 'Campo telefone está vazio';
+             $objProcesso->setFonteRecurso('0');
             }else{
             $objProcesso->setFonteRecurso($_POST['txtFonteRecurso']);
-        }
+        } 
         
         
 
