@@ -203,12 +203,12 @@
     <script>        
     $(document).ready(function() 
         {               
-            /*
+             
             $('#txtCPFPrincipal').mask("000.000.000-00");
             $('#txtTelefone').mask("(00) 00000-0000");
-            $('#txtPrevisao').mask('0000.000.000.000.000,00', {reverse: true});       */     
-           $('.complementoProcesso').css('display','none');
-        });    
+            $('#txtPrevisao').mask('0000.000.000.000.000,00', {reverse: true});             
+      
+         
          
          //botão para consultar se existe processo pré cadastrado
        $('#btnConsultarPre').on('click', function ()
@@ -300,7 +300,8 @@
             txtFonteRecurso: $('#txtFonteRecurso').val(),
             txtTag: $('#txtTag').val(),
             cbDeptoReq: $('#cbDeptoReq').val(),
-            txtDataAbertura: $('#txtDataAbertura').val()
+            txtDataAbertura: $('#txtDataAbertura').val(),
+            txtPrevisao: $('#txtPrevisao').val()
         };
         
       
@@ -405,27 +406,7 @@
             });
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
-    }); 
-        
-
- 
-
-
-
-
-
-
-
-
-
-
-            
-            
-            
-            
-            
-            
-            
+    });  
             //cadastro do processo
                $('#btnConsultarPre').click(function(event) {
              
@@ -469,6 +450,12 @@
         event.preventDefault();
              
     }); 
+    
+    
+   
+         $('.complementoProcesso').css('display','none');
+    
+    });   
             
     </script>
 

@@ -88,7 +88,16 @@ if(isset($_POST['consultaProcesso'])) {
             $objProcesso->setPrevisao('0');
             
             }else{
-            $objProcesso->setPrevisao($_POST['txtPrevisao']);
+                
+                
+                $valor = $_POST['txtPrevisao'];
+                
+                $valor = str_replace('.', '', $valor);
+                
+                $valor = str_replace(',', '.', $valor);
+                
+                
+            $objProcesso->setPrevisao($valor);
         }
  
 
