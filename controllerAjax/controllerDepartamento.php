@@ -1,58 +1,127 @@
 <?php
 
-/*
- 
-include_once '../classes/Pessoas.php';
+include_once '../classes/departamento.php';
+$objDepartamento = new Departamento();
 
-$objPessoas = new Pessoas();
-
-*/
- 
-
-$error        = array();      // array to hold validation errors
-$data           = array();  
+include_once '../classes/Processos.php';
+$objProcesso = new Processos();
 
 
- 
-          
-
-if (empty($_POST['txtObjetoProcesso'])) {
-    $error['txtObjetoProcesso'] = 'Campo Nome está vazio';
+if (isset($_POST['tipoConsultaDepto']))
+    {
     
-}else{
-    $txtObjetoProcesso = $_POST['txtObjetoProcesso'];
-}
+    
+    $tipoConsulta = $_POST['tipoConsultaDepto'];
+    
+    
+        
+    switch ($tipoConsulta) {
+        case 'consultarParaAbas':
 
-if (empty($_POST['cbDeptoReq'])) {
-    $error['cbDeptoReq'] = 'Campo Perfil está vazio';
-    }else{
-    $cbDeptoReq = $_POST['cbDeptoReq'];
-}
+             $dados = $objDepartamento->retornarDepartamento(' where iddepartamento >0');
+        
+            
+            echo '<div class="expanded   small button-group">';
+        
+                foreach ($dados as $key => $value) 
+                    {
+                   
+                    echo '<a  onclick="carregarTodos ('.$dados[$key]['valor']['idDepartamento'].',    \'apresentaTodosProcesso\', \'consultarProcessosPorDepartamentoEscolhido\', \''.$dados[$key]['valor']['nomeDepartamento'].'\'  )"   class="button tiny" href="#">'.$dados[$key]['valor']['inicialDepto'].'</a>';
+                    
+                      } 
+            echo '</div>';
+            
 
-if (empty($_POST['cbStatus'])) {
-    $error['status'] = 'Campo status está vazio';
-    }else{
-    $cbStatus = $_POST['cbStatus'];
-}
-  
+            break;
+            
+            
+            case 'consultarAbasParaArea':
 
-if ( ! empty($error)) {
+             $dados = $objDepartamento->retornarDepartamento(' where iddepartamento >0');
+        
+            
+            echo '<div class="expanded   small button-group">';
+        
+                foreach ($dados as $key => $value) 
+                    {
+                   ?>
+               
+                    
+                    
+                            <a   onclick="$('#enviarProcesso').html('Confirmar envio para <?=$dados[$key]['valor']['inicialDepto']?>');      popularCombo('area','where idDepartamento=<?=$dados[$key]['valor']['idDepartamento']?>', 'cbArea'   )"  class="button tiny" href="#"><?=$dados[$key]['valor']['inicialDepto']?></a>
+                    
+                    <?php  } 
+            echo '</div>';
+            
 
-    // if there are items in our errors array, return those errors
-    $data['success'] = false;
-    $data['error']  = $error;
-} else {
+            break;
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
-    // if there are no errors process our form, then return a message
+        default:
+            break;
+    }
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    /*
+    
+        if ($_POST['tipoConsultaDepto'] == 'consultarParaAbas') 
+            {
+                $dados = $objDepartamento->retornarDepartamento(' where iddepartamento >0');
+                
+                foreach ($dados as $key => $value) {
+                   
+                    ?>
 
-    // DO ALL YOUR FORM PROCESSING HERE
-    // THIS CAN BE WHATEVER YOU WANT TO DO (LOGIN, SAVE, UPDATE, WHATEVER)
+                        <li class="tabs-title"><a href="#panel3"><?=$dados[$key]['valor']['inicialDepto']?></a></li>
 
-    // show a message of success and provide a true success variable
-    $data['success'] = true;
-    $data['message'] = 'Success!';
-}
+                      <?php
+                    
+                }
+            }
 
-// return all our data to an AJAX call
-echo json_encode($data);
- 
+
+if (isset($_POST['tipoConsultaDepto']))
+    {
+        if ($_POST['tipoConsultaDepto'] == 'consultarParaAbas') 
+            {
+                $dados = $objDepartamento->retornarDepartamento(' where iddepartamento >0');
+                
+                foreach ($dados as $key => $value) {
+                   
+                    ?>
+
+                        <li class="tabs-title"><a href="#panel3"><?=$dados[$key]['valor']['inicialDepto']?></a></li>
+
+                      <?php
+                    
+                }
+            }            
+    }
+     * 
+     */
+
+
+            
+    }
+    
+    
+     

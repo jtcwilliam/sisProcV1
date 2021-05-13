@@ -8,54 +8,42 @@ class Conexao
     {
         try 
         {   
-            
-   /*
-            //desenvolvimento
-               
+             
+               //desenvolvimento local
                 $user = 'root';
-                $password = 'root';
-                $db = 'bancoWilliam';
-                $host = 'localhost';
-                
-                //producao
-           
-                $user = 'casadojo_dev';
-                $password = 'harlem';
-                $db = 'casadojo_bancoHbSonhos';
-                $host = 'localhost';                            
-               */
-                
-                
-                
+                $password = '';
+                $db = 'bancoprocteste';
+                $host = '127.0.0.1';   
+                  
+                                 
+                   /*
+                 
                  //desenvolvimento
                
                 $user = 'bancoprocteste';
                 $password = 'testePro987';
                 $db = 'bancoprocteste';
-                $host = 'bancoprocteste.mysql.dbaas.com.br';                            
+                $host = 'bancoprocteste.mysql.dbaas.com.br';    
+                          */
+
+                 
+              $con=mysqli_connect($host,$user,$password,$db);
               
-                 
-       $con=mysqli_connect($host,$user,$password,$db);
-                 
-              //producao
-            //$conexao = pg_connect('host=pgsql.pgsql05-farm56.kinghost.net   port=5432 dbname=casadojovemguarulhos4 user=casadojovemguarulhos4 password=harlem');
-            
-            //desenvolvimento
-           //  $conexao = pg_connect('host=pgsql.pgsql05-farm56.kinghost.net   port=5432 dbname=casadojovemguarulhos4 user=casadojovemguarulhos4 password=harlem');
- 
-              if (mysqli_connect_errno()) {
+              
+           mysqli_set_charset($con, "utf8");
+              /*
+            if (!mysqli_set_charset($con, "utf8mb4")) 
+                {
+                    printf("Error loading character set utf8mb4: %s\n", mysqli_error($con));
+                    exit();
+                } else {
+
+                }*/
+
+            if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
-
-
-
-
-           
-            
-            
-            
-            
-            
+ 
         return $con;
            
             } catch (Exception $exc) 
@@ -63,4 +51,8 @@ class Conexao
                 echo $exc->getTraceAsString();
             }
     }
+    
+    
+    
+   
 }

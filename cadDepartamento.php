@@ -5,6 +5,7 @@
      <?php 
      
         include_once 'includes/head.php'; 
+             session_start();
         ?> 
   
   <body style="background-color: #1c2c4e; ">

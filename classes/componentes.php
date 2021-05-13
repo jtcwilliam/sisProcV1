@@ -1,5 +1,11 @@
 <?php
 
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
+      
+
+
 class Componentes {
     
     
@@ -19,6 +25,7 @@ class Componentes {
         //criar uma instancia dessa nova conexao
         $this->setConexao($banco);
     }
+    
     
     
     function getConexao() {
@@ -54,18 +61,20 @@ class Componentes {
                     if($this->getFiltro()  != null){
                         $sql .= $this->getFiltro();
                     }
-
+                    
+      echo $sql;
+                    
+  
             $executar = mysqli_query($this->getConexao(), $sql);
+               
 
             while ($row = mysqli_fetch_array($executar)) 
                 {
-                    echo "<option value=".utf8_encode($row[0]).">".utf8_encode($row[1])."</option>";                
-                }            
+                    echo "<option value=".$row[0].">".$row[1]."</option>";                
+                }   
+              
         }
-    
-    
-
-    
-    
-    
+     
 }
+
+ 

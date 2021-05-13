@@ -1,0 +1,3 @@
+ $('#modalInformacoes').css("background-color", "white");
+$('#modalInformacoes').css("color", "white");
+$('#modalInformacoes').css("font-weight", "bolder");

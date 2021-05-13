@@ -3953,7 +3953,7 @@ html.is-reveal-open {
   left: 0;
   z-index: 1005;
   display: none;
-  background-color: rgba(10, 10, 10, 0.45);
+  background-color: rgba(10, 10, 10, 0.90);
   overflow-y: auto; }
 
 .reveal {

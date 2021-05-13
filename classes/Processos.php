@@ -3,6 +3,7 @@
 class Processos {
 
     private $conexao;
+    private $idProcesso;
     private $txtNumero;
     private $txtAno;
     private $objetoProcesso;
@@ -37,6 +38,11 @@ class Processos {
     }
     
     
+  
+    function getIdProcesso() {
+        return $this->idProcesso;
+    }
+
     function getTxtNumero() {
         return $this->txtNumero;
     }
@@ -75,6 +81,14 @@ class Processos {
 
     function getPrevisao() {
         return $this->previsao;
+    }
+
+    function getStatus() {
+        return $this->status;
+    }
+
+    function setIdProcesso($idProcesso) {
+        $this->idProcesso = $idProcesso;
     }
 
     function setTxtNumero($txtNumero) {
@@ -116,20 +130,179 @@ class Processos {
     function setPrevisao($previsao) {
         $this->previsao = $previsao;
     }
-    
-    function getStatus() {
-        return $this->status;
-    }
 
     function setStatus($status) {
         $this->status = $status;
     }
 
+        
     
+    
+    public function  retornarAnaliticoProcesso($filtro = null){
+        //forma de se ter o método retorno de processo com várias possibilidades
+        $sql = "select pr.numeroProcesso as numeroProcesso  ,  pr.idProcesso   ,pr.deptoRequerente  ,pr.idModalidade,   pr.fonteDeRecurso  as fonteDeREcurso   ,pr.anoProcesso  as anoProcesso , pr.descricaoProcesso as descricaoProcesso ,"
+                . " pr.objetoProcessos  as  objetoProcessos,"
+                . "   DATE_FORMAT(pr.dataAberturaProcesso, '%d/%m/%Y')   as dataAberturaProcesso ,  pr.dataAberturaProcesso   as dataDeAberturaSemFormatacao  , format(pr.previsaoOrcamentaria ,2,'de_DE') "
+                . "  as previsaoOrcamentaria ,  dp.nomeDepartamento as nomeDepartamento,"
+                . " md.descricaoModalidade as descricaoModalidade, fr.descFonteRecursos  as descFonteRecursos  , st.nomestatus as  nomestatus from processo pr"
+                . " inner join departamento dp on dp.iddepartamento = pr.deptoRequerente "
+                . " inner join modalidade md on md.idmodalidade = pr.idModalidade "
+                . " inner join fonterecursos fr on fr.idFonteRecursos = pr.fonteDeRecurso "
+                . " inner join status st  on st.idStatus = pr.statusStatus ";
+         
+        
+ 
+        
+                if($filtro  != null){
+                    $sql .= $filtro;
+                }
+                
+             
+          
+            
+            
+        $executar = mysqli_query($this->getConexao(), $sql);
+        
+        $contarCampos = mysqli_num_rows($executar);
+        
+        if($contarCampos ==0)
+            {             
+                $dados[] = array ("resultado"=>false );             
+            }
+        else 
+            {
+            while ($row = mysqli_fetch_assoc($executar)) 
+                {
+                
+                //  "numeroProcesso" => $row['numeroProcesso'],
+                    $dados[] = array
+                        (
+                            "resultado" => TRUE,
+                            "valor" => array
+                                (
+                                
+                                
+                                     "idProcesso" =>  $row['idProcesso'],
+                                    "numeroProcesso" =>  $row['numeroProcesso'],
+                                    "anoProcesso" =>  $row['anoProcesso'],
+                                    "descricaoProcesso" =>  $row['descricaoProcesso'],
+                                    "objetoProcessos" =>  $row['objetoProcessos'],
+                                    "dataAberturaProcesso" =>  $row['dataAberturaProcesso'],
+                                "dataDeAberturaSemFormatacao" =>  $row['dataDeAberturaSemFormatacao'],                                
+                                
+                                    "previsaoOrcamentaria" =>  $row['previsaoOrcamentaria'],
+                                    "idModalidade" =>  $row['idModalidade'],
+                                    "idFonteDeRecurso" =>  $row['fonteDeREcurso'],                                    
+                                    "descricaoModalidade" =>  $row['descricaoModalidade'],
+                                    "descFonteRecursos" =>  $row['descFonteRecursos'],
+                                    "nomeDepartamento" =>  $row['nomeDepartamento'],
+                                      "deptoRequerente" =>  $row['deptoRequerente'],
+                                    "nomestatus" =>  $row['nomestatus']
+                                )
+                        );
+                }   
+            } 
+              mysqli_close($this->getConexao());
+        return $dados;
+         
+    }
+    
+    
+    
+    
+    //classe para criar uma grade com todos os processos
+        public function  retornarProcessosEmGrade($filtro = null){
+        
+          //faz a consulta
+        $sql = 'select * from processo  ';
+                if($filtro  != null){
+                    $sql .= $filtro;
+                }         
+                 
+        $executar = mysqli_query($this->getConexao(), $sql);
+          
+        //monta a tabela
+            ?>
+                <table>
+                        <thead>
+                            <tr>
+                            <th width="200">Processo</th>                                 
+                            <th width="600">Objeto do Processo</th>     
+                             <th width="300">Tag's</th>    
+                        </tr>
+                    </thead>
+                    <tbody>                            
+                    <?php            
+                    while ($row = mysqli_fetch_assoc($executar)) 
+                        {  
+                        
+                        
+                            ?> 
+                            <tr>
+                                    <td width="200" >   <a   onclick="carregarSinteseProcesso('<?= $row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#"><?= utf8_encode($row['numeroProcesso']) . '/' . $row['anoProcesso'] ?>  </a></td>
+                                    <td width="600"  style="font-stretch: ultra-condensed"   ><?= substr($row ['objetoProcessos'], 0, 60) ?>...</td>
+                                 <td width="300"  style="font-stretch: ultra-condensed"     ><?= $row ['tagsProcesso'] ?></td>
+                            </tr>
+                            <?php
+                        }
+                    ?>
+                    </tbody>
+                </table>        
+        <?php 
+        
+                mysqli_close($this->getConexao());
+    }        
 
     public function  retornarProcessos($filtro = null){
         //forma de se ter o método retorno de processo com várias possibilidades
         $sql = 'select * from processo  ';
+                if($filtro  != null){
+                    $sql .= $filtro;
+                }
+                
+           
+                               
+        $executar = mysqli_query($this->getConexao(), $sql);
+        
+        $contarCampos = mysqli_num_rows($executar);
+        
+        if($contarCampos ==0)
+            {             
+                $dados[] = array ("resultado"=>false );             
+            }
+        else 
+            {
+            while ($row = mysqli_fetch_assoc($executar)) 
+                {
+                    $dados[] = array
+                        (
+                            "resultado" => TRUE,
+                            "valor" => array(
+                                "numeroProcesso" => $row['numeroProcesso'],
+                                 "anoProcesso" => $row['anoProcesso'],
+                                "statusStatus" => $row['statusStatus'],
+                                "objetoProcessos" => $row['objetoProcessos']
+                            )
+                        );
+                }   
+            } 
+            
+            mysqli_close($this->getConexao());
+        return $dados;
+         
+    }
+    
+    
+    
+     public function  consultarDadosProcesso($filtro = null){
+        //forma de se ter o método retorno de processo com várias possibilidades
+        $sql = '  select pr.numeroProcesso , pr.anoProcesso , pr.descricaoProcesso, pr.objetoProcessos, '
+                . 'pr.dataAberturaProcesso, pr.previsaoOrcamentaria, dp.nomeDepartamento, '
+                . 'md.descricaoModalidade, fr.descFonteRecursos, st.nomestatus from processo pr '
+                . 'inner join departamento dp on dp.iddepartamento = pr.deptoRequerente  '
+                . 'inner join modalidade md on md.idmodalidade = pr.idModalidade  '
+                . 'inner join fonterecursos fr on fr.idFonteRecursos = pr.fonteDeRecurso '
+                . 'inner join status st  on st.idStatus = pr.statusStatus  ';
                 if($filtro  != null){
                     $sql .= $filtro;
                 }
@@ -151,16 +324,24 @@ class Processos {
                             "resultado" => TRUE,
                             "valor" => array(
                                 "numeroProcesso" => $row['numeroProcesso'],
-                                "statusStatus" => $row['statusStatus'],
+                                "anoProcesso" => $row['anoProcesso'],
+                                "descricaoProcesso" => $row['descricaoProcesso'],
+                                "dataAberturaProcesso" => $row['dataAberturaProcesso'],
+                                "previsaoOrcamentaria" => $row['previsaoOrcamentaria'],
+                                "nomeDepartamento" => $row['nomeDepartamento'],
+                                "descricaoModalidade" => $row['descricaoModalidade'],
+                                "descFonteRecursos" => $row['descFonteRecursos'],
+                                "nomestatus" => $row['nomestatus'], 
                                 "objetoProcessos" => utf8_encode($row['objetoProcessos'])
                             )
                         );
                 }   
             } 
+            
+             mysqli_close($this->getConexao());
         return $dados;
         
-        
-    
+         
     }
     
     
@@ -187,22 +368,48 @@ class Processos {
                     
                     
             $executar = mysqli_query($this->getConexao(), $sql);
+                      
             if ($executar == true) {
+              
                 return true;
             }else
             {
+           
                 return false;
             }
         } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
         }
+        mysqli_close($this->getConexao());
     }
     
     
-    
-    /*
-     * 
-
-     */
-
+         public function atualizarProcessos(){        
+        try {
+            
+         
+            $sql = "UPDATE  processo  SET descricaoProcesso  =   '{$this->getDescricaoProjeto()}'  , "
+                    . "fonteDeRecurso  =   '{$this->getFonteRecurso()}'  , "
+                    . "objetoProcessos  =   '{$this->getObjetoProcesso()}'  , "
+                    . "dataAberturaProcesso  =   '{$this->getDataAbertura()}'  , "                                        
+                    . "deptoRequerente  =   '{$this->getDeptoRequerente()}'  , "
+                    . "idModalidade  =   '{$this->getModalidade()}'  , "
+                    . "previsaoOrcamentaria  =   '{$this->getPrevisao()} ' "
+                    . "WHERE  idprocesso  =   {$this->getIdProcesso()} ";
+                     
+            $executar = mysqli_query($this->getConexao(),  $sql);
+             
+            if ($executar == true) {
+              
+              echo json_encode(array('retorno'=>TRUE));
+            }else
+            {
+           
+                echo json_encode(array('retorno'=>false));
+            }
+        } catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+         mysqli_close($this->getConexao());
+    }
 }
