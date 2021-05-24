@@ -73,6 +73,8 @@
                               </div>
                               
                               
+                              
+                              
                               <div class="small-12 medium-12 large-3 cell caixa" id="cancelarCadastro"  >                                                
                                   <label>&nbsp;
                                       <a class="warning button"  required="" href="cadProcessos.php" style="width: 100%">Cancelar Cadastro</a>
@@ -163,12 +165,29 @@
                           </div>
                           
                           <div class="grid-x grid-padding-x">
-                             <div class="small-12 medium-12 large-12 cell">                                                
+                             <div class="small-12 medium-12 large-9 cell">                                                
                                   <label>Tags (Palavras chaves separadas por ponto e virgula)
                                       <input id="txtTag" class="entradasDados"  required="" type="text" >
                                   </label>
                               </div>    
-                          </div>
+                         
+                       
+                       <div class="small-12 medium-12 large-3 cell  " >   
+                                   <label>Prioridade
+                                 <select id="txtPrioridade" class="entradasDados " >
+                                    
+                                        <?php
+                                            $objComponentes->setTabela('prioridade');
+                                            $objComponentes->comboBox();
+                                        ?>
+                                           
+
+                                          </option>
+                                      </select>
+                                   </label>
+                                  
+                              </div>
+                               </div>
                          
                           
                           
@@ -330,7 +349,9 @@
             txtTag: $('#txtTag').val(),
             cbDeptoReq: $('#cbDeptoReq').val(),
             txtDataAbertura: $('#txtDataAbertura').val(),
-            txtPrevisao: $('#txtPrevisao').val()
+            txtPrevisao: $('#txtPrevisao').val(),
+            prioridade: $('#txtPrioridade').val()
+            
         };
         
       

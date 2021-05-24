@@ -17,6 +17,8 @@ if(isset($_POST['atualizarProcessos']))
     $objProcesso->setModalidade($_POST['txtModalidade']);
     $objProcesso->setDataAbertura($_POST['txtDataAbertura']);
     $objProcesso->setDeptoRequerente($_POST['cbDeptoReq']);
+    $objProcesso->setPrioridade($_POST['cbPrioridades']);
+    $objProcesso->setFavorito($_POST['cbFavorito']);
    
         
         
@@ -81,14 +83,14 @@ if (isset($_POST['tipoDeConsulta']))
                     $numeroProcesso = explode('/', $_POST['dadoDesejado']);                    
                     $numero = $numeroProcesso[0];
                     $ano = $numeroProcesso[1];                                        
-                    $objProcesso->retornarProcessosEmGrade(' where numeroProcesso='.$numero .' and anoProcesso='.$ano );
+                    $objProcesso->retornarProcessosEmGrade(' where numeroProcesso='.$numero .' and anoProcesso='.$ano. '  order by idprocesso desc ' );
                     
                     break;
                 
                 
                 case 'consultaPorTags':                    
                     $tags = $_POST['dadoDesejado'];
-                    $objProcesso->retornarProcessosEmGrade(" where tagsProcesso like(lower('%".$tags."%'))");
+                    $objProcesso->retornarProcessosEmGrade(" where tagsProcesso like(lower('%".$tags."%')) order by idprocesso desc ");
                     
                     break;
                 
@@ -96,9 +98,61 @@ if (isset($_POST['tipoDeConsulta']))
                    case 'consultarProcessosPorDepartamentoEscolhido':     
                 
                     $idDepartamento = $_POST['dadoDesejado'];
-                    $objProcesso->retornarProcessosEmGrade(" where deptoRequerente=".$idDepartamento);
+                    $objProcesso->retornarProcessosEmGrade(" where deptoRequerente=".$idDepartamento.' order by idprocesso desc ');
                     
                     break;
+                
+                
+                  case 'sempreSecretario':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where idprioridade in (4,5) and statusStatus=2 order by idPrioridade asc, idprocesso desc ");
+                    
+                    break;
+                
+                
+                case 'baixaPrioridade':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where idprioridade = 1 and statusStatus=2   order by idprocesso desc ");
+                    
+                    break;
+                
+                
+                
+                case 'urgente':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where idprioridade = 2 and statusStatus=2   order by idprocesso desc ");
+                    
+                    break;
+                
+                
+                case 'urgentissimo':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where idprioridade = 3 and statusStatus=2   order by idprocesso desc ");
+                    
+                    break;
+                
+                
+                
+                case 'critico':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where idprioridade = 4 and statusStatus=2   order by idprocesso desc ");
+                    
+                    break;
+                
+                
+                 case 'favorito':     
+                
+                    $idDepartamento = $_POST['dadoDesejado'];
+                    $objProcesso->retornarProcessosEmGrade(" where favorito=1 and statusStatus=2   order by idprocesso desc ");
+                    
+                    break;
+                
+                
                 
                 
                 

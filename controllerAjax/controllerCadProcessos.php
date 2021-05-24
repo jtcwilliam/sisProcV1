@@ -47,6 +47,8 @@ if ($_POST['acaoProcesso'] == 'inserir') {
     $objProcesso->setDeptoRequerente($_POST['cbDeptoReq']);
 
     $objProcesso->setDataAbertura($_POST['txtDataAbertura']);
+    
+    $objProcesso->setPrioridade($_POST['prioridade']);
 
 
 

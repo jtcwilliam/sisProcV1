@@ -150,7 +150,7 @@
               
         ?>
             <div class="grid-container">
-              <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
+              <div class="grid-x grid-padding-x"  style="  padding-top: 0.5em; padding-bottom: 0.5em">
                   <div class="small-12 medium-12 large-12 cell">
                       <form   method="post">
                         <fieldset class="fieldset">
@@ -166,17 +166,26 @@
                                     <div class="row">
                                         <div class="columns">
                                             <ul class="tabs" data-tabs id="example-tabs">
-                                                <li class="tabs-title is-active"><a href="#panel2">Consulta por número</a></li>
+                                                <li class="tabs-title is-active"><a href="#panel2">Número</a></li>
+
+                                                <li class="tabs-title"><a href="#panel3">Tag's</a></li>
+                                                <li class="tabs-title"><a href="#favoritoDiv"   onclick="carregarTodos(null,'favoritoDiv','favorito' )"  >Favoritos</a></li>
+                                                <li class="tabs-title"><a href="#baixaPrioridadeDiv"   onclick="carregarTodos(null,'baixaPrioridadeDiv','baixaPrioridade' )"  >Baixa Prioridade</a></li>
+                                                    <li class="tabs-title"><a href="#urgenteDiv" onclick="carregarTodos(null,'urgenteDiv','urgente' )"  >Urgente</a></li>
+                                                   
+                                                <li class="tabs-title"   ><a href="#urgentissimoDiv" onclick="carregarTodos(null,'urgentissimoDiv','urgentissimo' )">Urgentíssimo</a></li>
+                                                <li class="tabs-title"   ><a href="#criticoDiv" style="color: #5e001f" onclick="carregarTodos(null,'criticoDiv','critico' )">Critico</a></li>
+                                                <li class="tabs-title "><a href="#sempreSecretario" aria-selected="true" onclick="carregarTodos(null,'apresentaSecretario','sempreSecretario' )" >Acompanhamento do Secretário</a></li>
+                                                <li class="tabs-title "><a href="#processosAtivos" aria-selected="true" onclick="carregarTodos(null,'apresentaTodosProcesso','todosOsProcessos' )"  >Ativos</a></li>
+
                                                 
-                                                     <li class="tabs-title"><a href="#panel3">Consulta por Tag's</a></li>
-                                                <li class="tabs-title "><a href="#processosAtivos" aria-selected="true">Processos Ativos</a></li>
-                                                
-                                            
-                                                 
-                                                 
+ 
+
                                             </ul>
  
                                             
+                                            
+                                            <!-- paineis com os dados -->
                                             <div class="tabs-content" data-tabs-content="example-tabs">
                                               
                                                 
@@ -212,7 +221,7 @@
                                                         <div class="grid-x grid-padding-x" >
 
 
-                                                            <div class="small-12 medium-12 large-3 cell"><input type="text" id="txtConsultaPorTags" placeholder="Digite palavras Chaves" ></div>  
+                                                            <div class="small-12 medium-12 large-3 cell"><input type="text" id="txtConsultaPorTags" placeholder="Digite palavras Chaves (tag's) " ></div>  
                                                             <div class="small-12 medium-12 large-3 cell"><a class="button success"  onclick="carregarTodos($('#txtConsultaPorTags').val(), 'apresentaProcessosTags', 'consultaPorTags'  )  "   >Consultar</a></div>  
                                                         </div>
                                                     </fieldset>
@@ -225,6 +234,92 @@
 
 
                                                 </div>
+                                                
+                                                
+                                                
+                                                <div class="tabs-panel " id="sempreSecretario">
+                                                    
+                                                    <fieldset class="fieldset"> 
+                                                     
+                                                   
+                                                   <div id="apresentaSecretario"></div>
+                                                    </fieldset>
+                                                   
+                                                  
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                
+                                                
+                                                <div class="tabs-panel " id="baixaPrioridadeDiv">
+                                                    
+                                                    <fieldset class="fieldset"> 
+                                                     
+                                                   
+                                                   <div id="baixaPrioridade"></div>
+                                                    </fieldset>
+                                                   
+                                                  
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                 <div class="tabs-panel " id="urgenteDiv">
+                                                    
+                                                    <fieldset class="fieldset"> 
+                                                     
+                                                   
+                                                   <div id="urgente"></div>
+                                                    </fieldset>
+                                                   
+                                                  
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                
+                                                <div class="tabs-panel " id="urgentissimoDiv">
+                                                    
+                                                    <fieldset class="fieldset"> 
+                                                     
+                                                   
+                                                   <div id="urgentissimo"></div>
+                                                    </fieldset>
+                                                    
+                                                </div>
+                                                
+                                                <div class="tabs-panel " id="criticoDiv"    >
+                                                    
+                                                    <fieldset class="fieldset" > 
+                                                     
+                                                   
+                                                   <div id="critico"  ></div>
+                                                    </fieldset>
+                                                    
+                                                </div>
+                                                
+                                                <div class="tabs-panel " id="favoritoDiv"   >
+                                                    
+                                                    <fieldset class="fieldset" > 
+                                                     
+                                                   
+                                                   <div id="favorito"  ></div>
+                                                    </fieldset>
+                                                    
+                                                </div>
+                                                
+                                                
+                                                
+                                            
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                                                 
                                                 <div class="tabs-panel " id="processosAtivos">
                                                     
@@ -356,17 +451,6 @@
     function carregarSinteseProcesso (dadoDesejado  )
             {      
                 
-                /*{numeroProcesso: "2", anoProcesso: "1475", descricaoProcesso: "testes de pão", objetoProcessos: "pança", dataAberturaProcesso: "2021-03-21", …}
-anoProcesso: "1475"
-dataAberturaProcesso: "2021-03-21"
-descFonteRecursos: "Transferencias e Convênios Estaduais - Vinculados"
-descricaoModalidade: "Inexigibilidade"
-descricaoProcesso: "testes de pão"
-nomestatus: "Ativo"
-numeroProcesso: "2"
-objetoProcessos: "pança"
-previsaoOrcamentaria: "1265.25"
-__proto__: Object*/
                 
              
                
@@ -443,7 +527,7 @@ __proto__: Object*/
             $('.complementoProcesso').css('display','block');
             $('#conteudo').css('display','block');
                  
-            carregarTodos(null,'apresentaTodosProcesso','todosOsProcessos' );
+             // carregarTodos(null,'apresentaTodosProcesso','todosOsProcessos' );
            
     
     }); 

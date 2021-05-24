@@ -97,7 +97,7 @@ class LancamentoPorProcesso {
                 
             }else
             {
-               
+                
                 return false;
             }
         } catch (Exception $e) {

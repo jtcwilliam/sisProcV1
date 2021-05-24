@@ -172,7 +172,7 @@
                                  </div>
                                  
                                  
-                                 <div class="small-12 medium-12 large-4 cell">                                                
+                                 <div class="small-12 medium-12 large-3 cell">                                                
                                      <label>Modalidade
                                          
                                           <select id="txtModalidade"  class="entradasDados">
@@ -184,6 +184,19 @@
                                           
                                      </label>
                                  </div> 
+                              
+                              <div class="small-12 medium-12 large-1 cell">                                                
+                                     <label>Favorito
+                                         
+                                          <select id="cbFavorito"  class="entradasDados">
+                                              <option value="1">Sim</option>
+                                              <option value="0">Não</option>
+                                         </select>
+                                          
+                                     </label>
+                                 </div> 
+                              
+                              
                           </div>
                           
                            
@@ -191,7 +204,7 @@
                           
                           
                           <div class="grid-x grid-padding-x">
-                              <div class="small-12 medium-12 large-8 cell">                                                
+                              <div class="small-12 medium-12 large-7 cell">                                                
                                   <label>Departamento Requerente
                                       
                                        <select id="cbDeptoReq" class="entradasDados">
@@ -203,8 +216,8 @@
                                        
                                   </label>
                               </div>
-                             <div class="small-12 medium-12 large-4 cell">                                                
-                                  <label>Data de Abertura do Processo
+                             <div class="small-12 medium-12 large-2 cell">                                                
+                                  <label>Data de Abertura  
                                       <input type="date" id="txtDataAbertura" class="entradasDados" />
                                     
                                       <!-- não aparece na tela, mas não apague, ele é o id do processo, serve para validação -->
@@ -212,6 +225,21 @@
                                       <input type="hidden" id="txtIdUsuario" class="entradasDados" value="<?=$_SESSION['usuario']['idUsuario']?>"/>
                                   </label>
                               </div>
+                              
+                              <div class="small-12 medium-12 large-3 cell">                                                
+                                  <label>Prioridade
+                                      
+                                       <select id="cbPrioridades" class="entradasDados">
+                                           <?php
+                                            $objComponentes->setTabela('prioridade');
+                                            $objComponentes->comboBox();
+                                        ?>
+                                      </select>
+                                       
+                                  </label>
+                              </div>
+                              
+                              
                               
                     
                            <div class="small-12 medium-12 large-12 cell">       
@@ -610,6 +638,13 @@
                                         $('#txtFonteRecurso  option[value='+data[0].valor.idFonteDeRecurso+']').prop("selected", true);
                                          
                                          $('#txtModalidade  option[value='+data[0].valor.idModalidade+']').prop("selected", true);
+                                         
+                                         $('#cbPrioridades  option[value='+data[0].valor.idprioridade+']').prop("selected", true);
+                                         
+                                         $('#cbFavorito  option[value='+data[0].valor.favorito+']').prop("selected", true);
+                                         
+                                         
+                                         //cbPrioridades
 
 
                                      //   $('#txtFonteRecurso').val(data[0].valor.idFonteDeRecurso);
@@ -670,6 +705,8 @@
                                         txtObjetoProcesso:        $('#txtObjetoProcesso').val(),
 
                                         txtDescricaoProjeto:       $('#txtDescricaoProjeto').val(),
+                                        
+                                        cbPrioridades:       $('#cbPrioridades').val(),
 
                                         txtFonteRecurso:       $('#txtFonteRecurso').val(),
 
@@ -682,6 +719,10 @@
                                         cbDeptoReq:         $('#cbDeptoReq').val(),
 
                                         txtDataAbertura:       $('#txtDataAbertura').val(),
+                                        
+                                        
+                                         cbFavorito:       $('#cbFavorito').val(),
+                                        
                                                                                 
                                         txtIdProcesso:  $('#txtIdProcesso').val()
                                                                      

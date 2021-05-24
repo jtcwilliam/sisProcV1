@@ -25,6 +25,7 @@
         
  table {
     width: 100%;
+    height: 70%;
     display:block;
 }
 thead {
@@ -33,7 +34,7 @@ thead {
     height: 20px;
 }
 tbody {
-    height: 200px;
+    height: 70%;
     display: inline-block;
     width: 100%;
     overflow: auto;

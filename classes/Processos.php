@@ -15,7 +15,29 @@ class Processos {
     private $dataAbertura;
     private $previsao;
     private $status;
+    
+    private $prioridade;
+    private $favorito;
+    
+    function getFavorito() {
+        return $this->favorito;
+    }
 
+    function setFavorito($favorito) {
+        $this->favorito = $favorito;
+    }
+
+        
+    
+    
+    function getPrioridade() {
+        return $this->prioridade;
+    }
+
+    function setPrioridade($prioridade) {
+        $this->prioridade = $prioridade;
+    }
+ 
     function __construct() {
         // importar a classe conexao
         include_once 'Conexao.php';
@@ -140,7 +162,7 @@ class Processos {
     
     public function  retornarAnaliticoProcesso($filtro = null){
         //forma de se ter o método retorno de processo com várias possibilidades
-        $sql = "select pr.numeroProcesso as numeroProcesso  ,  pr.idProcesso   ,pr.deptoRequerente  ,pr.idModalidade,   pr.fonteDeRecurso  as fonteDeREcurso   ,pr.anoProcesso  as anoProcesso , pr.descricaoProcesso as descricaoProcesso ,"
+        $sql = "select pr.numeroProcesso as numeroProcesso  ,  pr.idProcesso   ,pr.deptoRequerente  ,pr.idModalidade,  idprioridade, favorito ,pr.fonteDeRecurso  as fonteDeREcurso   ,pr.anoProcesso  as anoProcesso , pr.descricaoProcesso as descricaoProcesso ,"
                 . " pr.objetoProcessos  as  objetoProcessos,"
                 . "   DATE_FORMAT(pr.dataAberturaProcesso, '%d/%m/%Y')   as dataAberturaProcesso ,  pr.dataAberturaProcesso   as dataDeAberturaSemFormatacao  , format(pr.previsaoOrcamentaria ,2,'de_DE') "
                 . "  as previsaoOrcamentaria ,  dp.nomeDepartamento as nomeDepartamento,"
@@ -189,12 +211,13 @@ class Processos {
                                     "objetoProcessos" =>  $row['objetoProcessos'],
                                     "dataAberturaProcesso" =>  $row['dataAberturaProcesso'],
                                 "dataDeAberturaSemFormatacao" =>  $row['dataDeAberturaSemFormatacao'],                                
-                                
+                                "favorito" =>  $row['favorito'],   
                                     "previsaoOrcamentaria" =>  $row['previsaoOrcamentaria'],
                                     "idModalidade" =>  $row['idModalidade'],
                                     "idFonteDeRecurso" =>  $row['fonteDeREcurso'],                                    
                                     "descricaoModalidade" =>  $row['descricaoModalidade'],
                                     "descFonteRecursos" =>  $row['descFonteRecursos'],
+                                 "idprioridade" =>  $row['idprioridade'],
                                     "nomeDepartamento" =>  $row['nomeDepartamento'],
                                       "deptoRequerente" =>  $row['deptoRequerente'],
                                     "nomestatus" =>  $row['nomestatus']
@@ -218,16 +241,21 @@ class Processos {
                 if($filtro  != null){
                     $sql .= $filtro;
                 }         
+                
+             
+                
                  
         $executar = mysqli_query($this->getConexao(), $sql);
           
-        //monta a tabela
+        //monta a tabela, se quiser rolagem, coloque um valor em pixels, tipo 500px
             ?>
                 <table>
                         <thead>
                             <tr>
-                            <th width="200">Processo</th>                                 
-                            <th width="600">Objeto do Processo</th>     
+                            <th width="150">Processo</th>                                 
+                            <th width="100">Favorito</th>    
+                            <th width="500">Objeto do Processo</th>     
+                            
                              <th width="300">Tag's</th>    
                         </tr>
                     </thead>
@@ -236,12 +264,36 @@ class Processos {
                     while ($row = mysqli_fetch_assoc($executar)) 
                         {  
                         
+                      
                         
                             ?> 
                             <tr>
-                                    <td width="200" >   <a   onclick="carregarSinteseProcesso('<?= $row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#"><?= utf8_encode($row['numeroProcesso']) . '/' . $row['anoProcesso'] ?>  </a></td>
-                                    <td width="600"  style="font-stretch: ultra-condensed"   ><?= substr($row ['objetoProcessos'], 0, 60) ?>...</td>
-                                 <td width="300"  style="font-stretch: ultra-condensed"     ><?= $row ['tagsProcesso'] ?></td>
+                                    <td width="150" >  
+                                        <a    <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                            <?=utf8_encode($row['numeroProcesso']) . '/' . $row['anoProcesso']; ?> 
+                                        </a>
+                                    </td>
+                                    <td width="100"  style="font-stretch: ultra-condensed"   >
+                                        <?php                                    
+                                                if($row['favorito']  == '1'){
+                                                ?>
+                                                        <img src="img/favorite.png" style="width: 10%" />
+                                                <?php
+                                                }
+                                                ?>
+                                    </td>
+                                    
+                                    <td width="500">  
+                                            <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                                <?= substr($row ['objetoProcessos'], 0, 60) ?>... 
+                                            </a>
+                                    </td>
+                                    
+                                    <td width="300"  > 
+                                        <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                                <?= $row ['tagsProcesso'] ?>
+                                        </a>
+                                    </td>
                             </tr>
                             <?php
                         }
@@ -352,7 +404,7 @@ class Processos {
          
             $sql = "INSERT INTO bancoprocteste . processo 
                 (
-                numeroProcesso,anoProcesso,descricaoProcesso ,fonteDeRecurso ,statusStatus ,objetoProcessos ,dataAberturaProcesso ,tagsProcesso ,deptoRequerente ,idModalidade ,previsaoOrcamentaria)
+                numeroProcesso,anoProcesso,descricaoProcesso ,fonteDeRecurso ,statusStatus ,objetoProcessos ,dataAberturaProcesso ,tagsProcesso ,deptoRequerente ,idModalidade ,previsaoOrcamentaria, idprioridade, favorito)
                     VALUES
                     ({$this->getTxtNumero()} ,"
                     . "'{$this->getTxtAno()}' ,"
@@ -364,7 +416,10 @@ class Processos {
                     . "'{$this->getTags()}' ,"
                     . "'{$this->getDeptoRequerente()}',"
                     . "'{$this->getModalidade()}' ,"
-                    . "'{$this->getPrevisao()}')";
+                    . "'{$this->getPrevisao()}' ,"
+                    . "'{$this->getPrioridade()}', '0')";
+                    
+                  
                     
                     
             $executar = mysqli_query($this->getConexao(), $sql);
@@ -391,10 +446,12 @@ class Processos {
             $sql = "UPDATE  processo  SET descricaoProcesso  =   '{$this->getDescricaoProjeto()}'  , "
                     . "fonteDeRecurso  =   '{$this->getFonteRecurso()}'  , "
                     . "objetoProcessos  =   '{$this->getObjetoProcesso()}'  , "
-                    . "dataAberturaProcesso  =   '{$this->getDataAbertura()}'  , "                                        
+                    . "dataAberturaProcesso  =   '{$this->getDataAbertura()}'  , "
+                    . "idprioridade  =   '{$this->getPrioridade()}'  ,"                                        
                     . "deptoRequerente  =   '{$this->getDeptoRequerente()}'  , "
                     . "idModalidade  =   '{$this->getModalidade()}'  , "
-                    . "previsaoOrcamentaria  =   '{$this->getPrevisao()} ' "
+                    . "previsaoOrcamentaria  =   '{$this->getPrevisao()} ', "
+                    . "favorito =   '{$this->getFavorito()} '"
                     . "WHERE  idprocesso  =   {$this->getIdProcesso()} ";
                      
             $executar = mysqli_query($this->getConexao(),  $sql);
@@ -413,3 +470,4 @@ class Processos {
          mysqli_close($this->getConexao());
     }
 }
+
