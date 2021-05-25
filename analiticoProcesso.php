@@ -146,15 +146,13 @@
                           <div class="grid-x grid-padding-x">
                              <div class="small-12 medium-12 large-5 cell">        
                                  <label>Fonte de Recursos
-                                   <select id="txtFonteRecurso" class="entradasDados " >
+                                    <select id="txtFonteRecurso" class="entradasDados " >
                                         <?php
                                             $objComponentes->setTabela('fonterecursos');
                                             $objComponentes->comboBox();
                                         ?>
-                                           
-
-                                         
-                                      </select>
+                                            
+                                    </select>
                               
                                       
                               
@@ -544,148 +542,8 @@
         }
         
     }
-      
-      function carregarLancamentosCadastrados (idDoProcesso  )
-            {                  
-                try 
-                   
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url: "controllerAjax/controllerLancamentoNoProcesso.php",
-                            dataType:"json",
-                                data:{
-                                    
-                                    tipoAcao: 'carregarLancamentosCadastrados',
-                                   
-                                    idProcesso: idDoProcesso
-                                   
-                                    },
-                                    //se der certo
-                                success: function(data,status,xhr)
-                                    {         
-                                        
-                                    
-                                
-                                        
-                                   for(var k in data) {
-                                       console.log(k, data[k]['descricao']);
-                                        
-                                        $('#accordion').append("<h3>Seção 1</h3> <div> -- </div>");
-                                       
-                                     
-                                          
-                                            
-                                    }
-                                     
-                                   
-                                                                  
-                                    },
-                                    //deu erro, mostra o erro
-                              error: function(xhr, status, error){
-                                  alert("Error!" + xhr.status);
-                              }
-                         });
-                     } 
-                 catch(e) 
-                     {
-                         //aqui phudeu tudo mesmo
-                         alert("A pesquisa não foi realizada");
-                     };
-                 };
-    
   
-    
-    
-    function carregarSinteseProcesso (dadoDesejado  )
-            {      $('#loading').css('display','block');
-                try 
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url: "controllerAjax/controllerProcessoSintese.php",
-                            dataType:"json",
-                                data:{
-                                    
-                                    tipoDeConsulta: 'consultarSinteseDosProcessos',
-                                   
-                                    dadoDesejado: dadoDesejado
-                                   
-                                    },
-                                success: function(data,status,xhr)
-                                    {         
-                                        
-                                     
-                                                                   
-                                                                   
-                                                                   //txtIdProcesso
-                                  
-                                  
-                                     $('#txtIdProcesso').val(data[0].valor.idProcesso);
-                                     
-                                     
- 
- 
-                                        
-                                        $('#dadosProcessoLegend').html('Processo: '+ data[0].valor.numeroProcesso+'/'+data[0].valor.anoProcesso   );
-                                        
-                                        $('#txtObjetoProcesso').val(data[0].valor.objetoProcessos);
-
-                                        $('#txtDescricaoProjeto').val(data[0].valor.descricaoProcesso);
-                                        
-                                   //     console.log(data[0].valor.idFonteDeRecurso);
-                                        
-                                        $('#txtFonteRecurso  option[value='+data[0].valor.idFonteDeRecurso+']').prop("selected", true);
-                                         
-                                         $('#txtModalidade  option[value='+data[0].valor.idModalidade+']').prop("selected", true);
-                                         
-                                         $('#cbPrioridades  option[value='+data[0].valor.idprioridade+']').prop("selected", true);
-                                         
-                                         $('#cbFavorito  option[value='+data[0].valor.favorito+']').prop("selected", true);
-                                         
-                                         
-                                         //cbPrioridades
-
-
-                                     //   $('#txtFonteRecurso').val(data[0].valor.idFonteDeRecurso);
-
-                                  
-
-                                        $('#txtTag').val(data[0].valor.objetoProcessos);
-
-                                        $('#txtPrevisao').val(data[0].valor.previsaoOrcamentaria);
-                                        
-                                        
-                                        
-                                         $('#cbDeptoReq  option[value='+data[0].valor.deptoRequerente+']').prop("selected", true);
-                                        
-                                    
-                                          
-                                        $('#txtDataAbertura').val(data[0].valor.dataDeAberturaSemFormatacao);
-                                        
-                                                                                                                                                                                                    
-                                        $('#loading').css('display','none');
-                                        
-                                          $('.entradasDados').attr('disabled', true);
-                                        $('#analiseProcesso').attr('href', 'analiticoProcesso.php?numeroProcesso='+ data[0].valor.numeroProcesso + '&anoProcesso='+data[0].valor.anoProcesso);
-                                        
-                                        
-                                    
-                                   
-                                                                  
-                                    },
-                              error: function(xhr, status, error){
-                                  alert("Error!" + xhr.status);
-                              }
-                         });
-                     } 
-                 catch(e) 
-                     {
-                         alert("A pesquisa não foi realizada");
-                     };
-                 };
-            
-                 
+                
                  
     function atualizarProcesso ()
             {     
@@ -778,9 +636,11 @@
             $('#btnGravarAlteracoes').toggle (); 
             $('.complementoProcesso').css('display','block');
               $('#sucessoLancamentoCastrado').css('display','none');
+            $('.entradasDados ').attr('disabled', 'disabled');
+            
+     
             
             
-            $('#conteudo').css('display','block');
             
             
                  //popular combo departamento

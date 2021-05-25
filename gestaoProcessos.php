@@ -404,118 +404,12 @@
 
     <script>    
     
-    function carregarTodos (dadoDesejado, areaApresentacao, tipoDeConsulta )
-            {      
-                console.log(dadoDesejado);
-                console.log(tipoDeConsulta);
-              
-               
-                 $('#'+areaApresentacao).html($('#loading').css('display','block'));
-                try 
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url: "controllerAjax/controllerProcessoSintese.php",
-                            dataType:"html",
-                                data:{  dadoDesejado: dadoDesejado,
-                                        areaApresentacao: areaApresentacao,
-                                        tipoDeConsulta:  tipoDeConsulta
-                                    
-                                    },
-                                success: function(data,status,xhr)
-                                    {                
-                                        
-                                        console.log(data);
-                                        
-                                        $('#loading').css('display','none');
-                                        
-                                            
-                                        //area da tela onde virão os dados
-                                        $('#'+areaApresentacao).html(data);
-                                                                  
-                                    },
-                              error: function(xhr, status, error){
-                                  alert("Error!" + xhr.status);
-                              }
-                         });
-                     } 
-                 catch(e) 
-                     {
-                         alert("A pesquisa não foi realizada");
-                     };
-                 };
+   
                  
                  
                  
                  
-    function carregarSinteseProcesso (dadoDesejado  )
-            {      
-                
-                
-             
-               
-                $('#loading').css('display','block');
-                try 
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url: "controllerAjax/controllerProcessoSintese.php",
-                            dataType:"json",
-                                data:{
-                                    
-                                    tipoDeConsulta: 'consultarSinteseDosProcessos',
-                                   
-                                    dadoDesejado: dadoDesejado
-                                   
-                                    },
-                                success: function(data,status,xhr)
-                                    {         
-                                        
-                                        console.log(data);
-                                                                                                               
-                                        $('#modalInformacoes').css("background-color", "#dcdcdc");
-                                        $('#modalInformacoes').css("color", "white");
-                                        $('#modalInformacoes').css("font-weight", "bolder");
-                                                                                                              
-                                        $('#modalInformacoes').foundation('open');   
-                                        
-                                        $('#numeroAnoProcesso').val(data[0].valor.numeroProcesso+'/'+data[0].valor.anoProcesso   );
-                                        
-                                        $('#txtObjetoProcesso').val(data[0].valor.objetoProcessos);
 
-                                        $('#txtDescricaoProjeto').val(data[0].valor.descricaoProcesso);
-
-                                        $('#txtFonteRecurso').val(data[0].valor.descFonteRecursos);
-
-                                        $('#txtModalidade').val(data[0].valor.descricaoModalidade);
-
-                                        $('#txtTag').val(data[0].valor.objetoProcessos);
-
-                                        $('#txtPrevisao').val(data[0].valor.previsaoOrcamentaria);
-                                        
-                                        $('#cbDeptoReq').val(data[0].valor.nomeDepartamento);
-                                          
-                                        $('#txtDataAbertura').val(data[0].valor.dataDeAberturaSemFormatacao);
-                                                                                                                                                                                                    
-                                        $('#loading').css('display','none');
-                                        
-                                        
-                                        $('#analiseProcesso').attr('href', 'analiticoProcesso.php?numeroProcesso='+ data[0].valor.numeroProcesso + '&anoProcesso='+data[0].valor.anoProcesso  + '&8654f1fd71ecf4ecc061cbab0a34a728='+data[0].valor.idProcesso  );
-                                        
-                                        
-                                   
-                                                                  
-                                    },
-                              error: function(xhr, status, error){
-                                  alert("Error!" + xhr.status);
-                              }
-                         });
-                     } 
-                 catch(e) 
-                     {
-                         alert("A pesquisa não foi realizada");
-                     };
-                 };
     
     
     $(document).ready(function() 
@@ -527,7 +421,7 @@
             $('.complementoProcesso').css('display','block');
             $('#conteudo').css('display','block');
                  
-             // carregarTodos(null,'apresentaTodosProcesso','todosOsProcessos' );
+              
            
     
     }); 

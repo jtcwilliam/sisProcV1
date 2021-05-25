@@ -62,7 +62,7 @@ class Componentes {
                         $sql .= $this->getFiltro();
                     }
                     
-      echo $sql;
+ 
                     
   
             $executar = mysqli_query($this->getConexao(), $sql);

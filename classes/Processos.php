@@ -263,13 +263,11 @@ class Processos {
                     <?php            
                     while ($row = mysqli_fetch_assoc($executar)) 
                         {  
-                        
                       
-                        
                             ?> 
                             <tr>
                                     <td width="150" >  
-                                        <a    <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                        <a    <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
                                             <?=utf8_encode($row['numeroProcesso']) . '/' . $row['anoProcesso']; ?> 
                                         </a>
                                     </td>
@@ -284,13 +282,13 @@ class Processos {
                                     </td>
                                     
                                     <td width="500">  
-                                            <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                            <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>      href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
                                                 <?= substr($row ['objetoProcessos'], 0, 60) ?>... 
                                             </a>
                                     </td>
                                     
                                     <td width="300"  > 
-                                        <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>  onclick="carregarSinteseProcesso('<?=$row['numeroProcesso'] . '/' . $row['anoProcesso'] ?>' )"   href="#">
+                                        <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
                                                 <?= $row ['tagsProcesso'] ?>
                                         </a>
                                     </td>
