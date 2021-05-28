@@ -267,7 +267,7 @@ class Processos {
                             ?> 
                             <tr>
                                     <td width="150" >  
-                                        <a    <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
+                                        <a    <?php if( $row['idPrioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idProcesso']?>">
                                             <?=utf8_encode($row['numeroProcesso']) . '/' . $row['anoProcesso']; ?> 
                                         </a>
                                     </td>
@@ -282,13 +282,13 @@ class Processos {
                                     </td>
                                     
                                     <td width="500">  
-                                            <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>      href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
+                                            <a   <?php if( $row['idPrioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>      href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idProcesso']?>">
                                                 <?= substr($row ['objetoProcessos'], 0, 60) ?>... 
                                             </a>
                                     </td>
                                     
                                     <td width="300"  > 
-                                        <a   <?php if( $row['idprioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idprocesso']?>">
+                                        <a   <?php if( $row['idPrioridade'] == 4) { echo  'style="font-stretch: expanded;   color: #B13817"'; } ?>    href="analiticoProcesso.php?numeroProcesso=<?=$row['numeroProcesso'] ?>&anoProcesso=<?=$row['anoProcesso']?>&8654f1fd71ecf4ecc061cbab0a34a728=<?= $row['idProcesso']?>">
                                                 <?= $row ['tagsProcesso'] ?>
                                         </a>
                                     </td>

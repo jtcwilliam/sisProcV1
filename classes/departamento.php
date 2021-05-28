@@ -182,7 +182,7 @@ class Departamento {
                         (
                             "resultado" => TRUE,
                             "valor" => array(
-                                "idDepartamento" => $row['iddepartamento'],
+                                "idDepartamento" => $row['idDepartamento'],
                                  "nomeDepartamento" =>  $row['nomeDepartamento'],
                                 "responsavelDepartamento" => $row['responsavelDepto'] ,
                                 "siglaDepto" => $row['siglaDepto'] ,

@@ -14,10 +14,15 @@
      
         include_once 'includes/head.php';   
         include_once './classes/componentes.php';
+        include_once './classes/Expediente.php';
+        
         $objComponentes = new Componentes();
+        $objExpediente = new Expediente();
+        
+        
+        
        
- 
-  
+     
 
    
         ?> 
@@ -43,50 +48,98 @@
  
  
           
+     
         
-      
  
  ?>
           
           
-          <div class="reveal" id="revelEncaminhaProcesso" data-reveal style="background-color: #E8E8E8; font-stretch: extra-condensed"  >
+          
+             <div class="full reveal" id="modalSucessoTramitacao" data-reveal data-close-on-click="true" data-animation-in="fade-in" data-animation-out="fade-out" style="background-color: #eaeef4">
+            
+              
+                 <div class="grid-container">
+                     <div class="grid-x grid-padding-x"  style="  padding-top: 1em; padding-bottom: 6em">
+                         <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
+                             <center>
+                                 <h4>Processo Tramitado com Sucesso</h4>
+
+                                 <img src="img/logAberto.png" style="width: 40%"/>
+                             </center>
+                         </div>
+                         
+                         
+                         <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
+                             <center>
+                               
+                                 <br>
+
+                                 <img src="img/logoPrefeitura.png" style="width: 20%"/>
+                             </center>
+                         </div>
+                         
+                         
+                         
+                          <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
+                             <center>
+                               
+                                 <br>
+
+                                 <a href="analiticoProcesso.php?numeroProcesso=8834&anoProcesso=2021&8654f1fd71ecf4ecc061cbab0a34a728=<?=$_GET['8654f1fd71ecf4ecc061cbab0a34a728']?>" class="button botaoConfirmar">Clique aqui para concluir atualização</a>
+                             </center>
+                         </div>
+                         
+                         
+                     </div>
+                 </div>
+  
+               
+               
+          </div>
+
+          <div class="large reveal" id="modalTramitar" data-reveal data-close-on-click="true" data-animation-in="fade-in" data-animation-out="fade-out" style="background-color: #e9eaea">
+            
               
               <fieldset class="fieldset">
-                  <legend>Encaminhar Processo</legend>
-                    <div class="grid-x grid-padding-x">
-                        <div class="small-12 medium-12 large-12 cell">                                                
-                            <label>Escolha o Departamento 
-                                <select id="cbDeptoEscolhe" required="" style="font-stretch: extra-condensed"  >
+                  <legend>Olá. Agora a tramitação é Automática !</legend>
+               
+                  <br>
 
-                                </select>
-                            </label>
-                        </div>    
+                  <div class="small-12 medium-12 large-12 cell">                                                
+                      <label>Vai enviar para qual departamento?
+                          <select id="cbDeptoTramitar">
 
 
-                        <div class="small-12 medium-12 large-12 cell">                                                
-                            <label> &nbsp;
-                                <a class="button success" style="width: 100%" >Confirmar envio de Processo</a>
-                            </label>
-                        </div>
-                    </div>
-              
-              
+
+                          </select>
+                      </label>
+                  </div>
+
+                  <div class="small-12 medium-12 large-12 cell" id="divAreaTramite">                                                
+                      <label>Escolha a Divisão que vai receber este processo!
+                          <select id="cbAreaTramitar"       >
+                              
+
+                          </select>
+                      </label>
+                  </div>
+                  
+                  <div class="small-12 medium-12 large-12 cell"   id="botaoTramitarTudo" >                                                
+                       <label> &nbsp;
+                           <button class="button botaoConfirmar" onclick="tramitar()" style="width: 100%">Clique aqui e a tramitação estará feita !  </button>
+                      </label>
+                  </div>
+                  
+                  
+                  
               </fieldset>
-              
-              
-              
-              <button class="close-button" data-close aria-label="Close modal" type="button">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+               
+               
+               
           </div>
-  
-             
           
-          
-          
-          
-          
-
+         
+    
         <div class="reveal" id="modalLoading" data-reveal>
             <center>  <h1>Aguarde por favor</h1>
             <img src="img/loading.gif" /> </center>
@@ -102,7 +155,7 @@
                   <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
                       <ul class="menu align-right">
                           <li><a href="#" id="chamarAlteracoes">Habilitar Correção</a></li>
-                          <li><a href="distribuicaoProcesso.php?numero=<?=$_GET['numeroProcesso'].'&ano='.$_GET['anoProcesso']?>"    id="encaminhaProcesso">Encaminhar Processo</a></li>
+                          
                           <li><a href="report/relatorioAndamentos.php?dhkakjhdjhfjhfjhufh=<?=$_GET['8654f1fd71ecf4ecc061cbab0a34a728']?>"  target="_blank"  id="encaminhaProcesso">Relatórios</a></li>
                           
                               
@@ -258,9 +311,7 @@
                      </fieldset>
                             </div>
                       
-                      
-                      
-                      
+                       
                       
                     <div class="grid-x grid-padding-x" id="interacaoProcesso" >
                         <div class="small-12 medium-12 large-12 cell">                                       
@@ -348,11 +399,13 @@
                                      $dadosParaExibir=    $objLancamentoNoProcesso->consultarLancamentosNoProcessoAnaliticoProc($_GET['8654f1fd71ecf4ecc061cbab0a34a728']);
                                      
                                      
+                                     
                                      $tamanho = count($dadosParaExibir);
                                      
                                      $cont = 1;
                                      foreach ($dadosParaExibir as $value) {
                                      
+                        
                                          
                                          if(isset($value['descricaoLancamento'])){
                                          
@@ -388,31 +441,63 @@
                                                     <div class="small-12 medium-12 large-5 cell">                                                
                                                         <label style="color: graytext; ">Departamento / Área</label>
                                                             <p style="font-size: 1em"><?=$value['inicialDepto'] . ' - '.$value['descricaoArea'] ?></p>
-
-
-                                                        
-                                                    </div>
-                                                    
-                                                    <div class="small-12 medium-12 large-12 cell">                                                
+ 
+                                                    </div> 
+                                                    <div class="small-12 medium-12 large-10 cell">                                                
                                                         <label style="color: graytext;  ">Justificativa, Encaminhamento ou Recomendação</label>
                                                             <p style="font-size: 1em"><?=$value['justificativa']?></p>
-
-
-                                                        
+ 
                                                     </div>
+                                                      
+                                                    <?php
                                                     
                                                     
                                                     
-                                                </div>
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                 
-                                            </div>
+                                                    if($value['lancamentoNoProcesso']=='20'){
+                                                        ?>
+                                                            
+                                                            <div class="small-12 medium-12 large-2 cell">   
+                                                                 <label style="color: graytext;  "> </label>
+                                                                 <a  style="color: black"     ><center><i class="fas fa-road"></i><br>Tramitado</center></a>
+                                                            </div>
+                                                        
+                                                        
+                                                        <?php
+                                                    }else
+                                                    {
+                                                          ?>
+                                                            
+                                                            <div class="small-12 medium-12 large-2 cell">   
+                                                                 <label style="color: graytext;  "> </label>
+                                                                 <a href="#"  onclick="$('#modalTramitar').foundation('open');  $('#hdLancamentoProcesso').val(<?=$value['idLancamentoPorProcesso']?>)  " ><center>  <i class="fas fa-paper-plane"></i>   <br>Tramitar</center></a>
+                                                            </div>
+                                                        
+                                                        
+                                                        <?php
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    ?>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                </div>     
+                                                    
+                                             
                                         </li>
                                         <?php
                                          }
@@ -420,27 +505,10 @@
                                          $cont++;
                                          $tamanho-=1;
                                          
-                                     }
-                                      
+                                     } 
                                      
-                                     
-                                     ?>
-                                    
-                                    
-                                    
-                                     
-                                       </ul>
-                                 
-                            
-                       
-                                  
-                                    
-                                  
-                             
-                                        
-                                         
-                                   
-                                    
+                                     ?> 
+                                       </ul> 
                                  </fieldset>
                           </div>
 
@@ -456,6 +524,16 @@
  
       </main>
       
+      <div style="display: none">
+            <input type="text" id="hdUsuario"       value="<?= $_SESSION['usuario']['idUsuario'] ?>"/>
+            <input type="text" id="hdDepartamento"  value="<?= $_SESSION['usuario']['idDepartamento'] ?>"/>
+            <input type="text" id="hdArea"          value="<?= $_SESSION['usuario']['idArea'] ?>"/>
+            <input type="text" id="hdProcesso"      value="<?= $_GET['8654f1fd71ecf4ecc061cbab0a34a728'] ?>" />
+            <input type="text" id="hdLancamentoProcesso"   />
+      </div>    
+            
+      
+      
       <!-- incluindo o footer  -->
     <?php 
       include_once 'includes/footer.php';
@@ -464,10 +542,44 @@
     <script>     
       
       
-  
+      
+function tramitar()
+    {     
+        var formData = {
+            usuarioRemetente :$('#hdUsuario').val(),
+            departamentoRemetente : $('#hdDepartamento').val(),
+            areaRemetente : $('#hdArea').val(),
+            processo : $('#hdProcesso').val(),         
+            departamentoDestino: $('#cbDeptoTramitar').val(),
+            areaDestino: $('#cbAreaTramitar').val(),
+            lancamentoNoProcesso :$('#hdLancamentoProcesso').val()
+        };               
+        $.ajax({
+            type        : 'POST',  
+            url         : 'controllerAjax/controllerExpediente.php', 
+            data        : formData, 
+            dataType    : 'json', 
+            encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) { 
+               
+               if(data.retorno = true){
+                   $('#modalTramitar').foundation('close');
+                     $('#modalSucessoTramitacao').foundation('open');
+           
+           
+               }
+                  
+            });           
+    };
+    
         //inicio da area de cadastro de lancamento
         $('#formulariosLancamentos').submit(function(event) {
                  $('#cadastrarLancamento').hide();
+   
+   
+       
    
         var formData = {
             tipoAcao: 'inserir',
@@ -488,11 +600,13 @@
         })
             // using the done promise callback
             .done(function(data) { 
-               
+                         
+               console.log(data);
                console.log(data.retorno);
                 
              if(data.retorno == true)
                 {
+                   
                    
                     $('#sucessoLancamentoCastrado').fadeIn('slow');
                     
@@ -637,6 +751,9 @@
             $('.complementoProcesso').css('display','block');
               $('#sucessoLancamentoCastrado').css('display','none');
             $('.entradasDados ').attr('disabled', 'disabled');
+            $('#divAreaTramite').hide();
+             $('#botaoTramitarTudo').hide();
+            
             
      
             
@@ -645,10 +762,28 @@
             
                  //popular combo departamento
             popularCombo('departamento',null, 'cbDeptoEscolhe');
-            
+             popularCombo('departamento',null, 'cbDeptoTramitar');
           
            
     }); 
+    
+    
+    
+       $('#cbDeptoTramitar').change(function (){    
+        
+             popularCombo("area"," where idDepartamento="+$('#cbDeptoTramitar').val(), "cbAreaTramitar"   );
+               $('#divAreaTramite').show();
+              
+        });
+        
+        
+        $('#cbAreaTramitar').click(function (){    
+        
+          
+               $('#botaoTramitarTudo').show();
+             
+       
+        });
     
     
     carregarSinteseProcesso(<?=$_GET['numeroProcesso']?>+'/'+<?=$_GET['anoProcesso']?>);

@@ -1,6 +1,6 @@
 <?php
 
-include_once '../classes/departamento.php';
+include_once '../classes/Departamento.php';
 $objDepartamento = new Departamento();
 
 include_once '../classes/Processos.php';
@@ -22,6 +22,8 @@ if (isset($_POST['tipoConsultaDepto']))
         
             
             echo '<div class="expanded   small button-group">';
+            
+        
         
                 foreach ($dados as $key => $value) 
                     {

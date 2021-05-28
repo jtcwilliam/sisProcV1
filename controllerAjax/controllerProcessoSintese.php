@@ -3,7 +3,7 @@
 include_once '../classes/Processos.php';
 $objProcesso = new Processos();
 
-include_once '../classes/departamento.php';
+include_once '../classes/Departamento.php';
 $objDepartamento = new Departamento();
 
 

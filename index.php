@@ -24,6 +24,43 @@
                  
               </div>
       
+      
+      
+      
+      <div class="full reveal" id="modalSucessoLog" data-reveal data-close-on-click="true" data-animation-in="fade-in" data-animation-out="fade-out" style="background-color: #eaeef4">
+
+
+          <div class="grid-container">
+              <div class="grid-x grid-padding-x"  style="  padding-top: 1em; padding-bottom: 6em">
+                  <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
+                      <center>
+                         
+
+                          <img src="img/logAberto.png" style="width: 40%"/>
+                          
+                           <h2 style="font-family: Arial; font-stretch: condensed; color: #0088c3; font-weight: bold">Acesso Permitido</h2>
+                          
+                      </center>
+                  </div>
+
+
+                  <div class="small-12 medium-12 large-12 cell" style="display: inline-table">
+                      <center>
+
+                          <br>
+
+                          <img src="img/logoPrefeitura.png" style="width: 20%"/>
+                      </center>
+                  </div>
+ 
+
+              </div>
+          </div>
+
+
+
+      </div>
+      
         <main style="background-color:#e9eaea;   " >
           <div class="grid-container">
               <div class="grid-x grid-padding-x"  style="  padding-top: 4em; padding-bottom: 6em">
@@ -158,7 +195,10 @@
                         $('#modalInformacoes').css("color", "#424300");                                            
                         $('#modalInformacoes').css("font-stretch", "semi-condensed");                      
                         $('#modalInformacoes').css("text-align","center");
-                        $('#modalInformacoes').html('<h1>Acesso Permitido !</h1><h5>Aguarde seu redirecionamento</h5>').foundation('open');  
+                        
+                        
+                        
+                        $('#modalSucessoLog').foundation('open');  
                         
                         setTimeout(function() 
                                     {

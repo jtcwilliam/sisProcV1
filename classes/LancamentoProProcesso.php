@@ -12,7 +12,28 @@ class LancamentoPorProcesso {
     private $data;
     private $idPessoas;
     private $conexao;
+    private $lancamentoNoProcesso;
+    private $status;
+    
+    function getStatus() {
+        return $this->status;
+    }
 
+    function setStatus($status) {
+        $this->status = $status;
+    }
+
+        
+    
+    function getLancamentoNoProcesso() {
+        return $this->lancamentoNoProcesso;
+    }
+
+    function setLancamentoNoProcesso($lancamentoNoProcesso) {
+        $this->lancamentoNoProcesso = $lancamentoNoProcesso;
+    }
+
+    
     function getIdLancamento() {
         return $this->idLancamento;
     }
@@ -81,12 +102,9 @@ class LancamentoPorProcesso {
     
     public function inserirLancamentoNoProcesso(){        
         try {                     
-                $sql = "INSERT INTO  lancamentoporprocesso  (idProcesso , justificativa , dataLancamento , idPessoas, idLancamento ) "
-                        . "VALUES ('".$this->getIdProcesso(). "','".($this->getJustificativa()). "','".$this->getData(). "','".$this->getIdPessoas()."','".$this->getIdLancamento()."')";
-                
-                
-                  
-                                                 
+                $sql = "INSERT INTO  lancamentoporprocesso  (idProcesso , justificativa , dataLancamento , idPessoas, idLancamento, idStatusLancamentoNoProcesso ) "
+                        . "VALUES ('".$this->getIdProcesso(). "','".($this->getJustificativa()). "','".$this->getData(). "','".$this->getIdPessoas()."','".$this->getIdLancamento()."',2 )";
+                                             
             $executar = mysqli_query($this->getConexao(), utf8_decode($sql));
             
             if ($executar == true) {
@@ -107,9 +125,41 @@ class LancamentoPorProcesso {
     }
     
     
+    
+     public function atualizarStatusLancamentoProcesso(){        
+        try 
+            {                     
+                $sql = "    UPDATE  lancamentoporprocesso  SET  idStatusLancamentoNoProcesso= ".$this->getStatus()."  WHERE idLancamentoPorProcesso =".$this->getLancamentoNoProcesso();
+ 
+              
+                
+                $executar = mysqli_query($this->getConexao(), utf8_decode($sql));
+            
+                if ($executar == true) {
+
+                    mysqli_close($this->getConexao());
+                    return true;
+
+
+                }else
+                {
+
+                    return false;
+                }
+        } catch (Exception $e) {
+            return $e->getMessage() ;
+        }
+         
+    }
+    
+    
+    
+    
+    
+    
     public function  consultarLancamentosNoProcessoAnaliticoProc($idProcesso){
         //forma de se ter o método retorno de processo com várias possibilidades
-        $sql = "select   dpt.inicialDepto as  inicialDepto ,  ar.descricaoArea, la.descricaoLancamento, ps.nomePessoa,  ps.ramalPessoa,  "
+        $sql = "select lp.idStatusLancamentoNoProcesso as lancamentoNoProcesso,  lp.idLancamentoPorProcesso,  dpt.inicialDepto as  inicialDepto ,  ar.descricaoArea, la.descricaoLancamento, ps.nomePessoa,  ps.ramalPessoa,  "
                 . "  DATE_FORMAT(lp.dataLancamento, '%d/%m/%Y')  as dataLancamento , ps.ramalPessoa, lp.justificativa, "
                 . "lp.idLancamentoPorProcesso from lancamentoporprocesso lp inner join  lancamento la  "
                 . "on lp.idLancamento =  la.idLancamento  "
@@ -117,10 +167,7 @@ class LancamentoPorProcesso {
                 . "inner join area ar on ar.idarea = ps.idArea   "
                 . "inner join departamento dpt on dpt.iddepartamento = ar.idDepartamento "
                 . " where lp.idProcesso=".$idProcesso . " order by idLancamentoPorProcesso desc  ";
-                
-        
-       
-     
+                 
                                
         $executar = mysqli_query($this->getConexao(), $sql);
         

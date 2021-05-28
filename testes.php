@@ -3,6 +3,18 @@
 
 
 
-$peca = "william ferreira 's proximo ";
+$people = array(
+  
+  0=> array(
+    'name' => 'Samuel',
+    'fav_color' => 'blue'
+  )
+);
 
-echo addcslashes($peca, 'UTF-8');
+$found_key = array_search('blue', array_column($people, 'fav_color'));
+
+echo $found_key;
+
+
+
+?>
